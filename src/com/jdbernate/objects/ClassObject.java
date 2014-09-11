@@ -10,7 +10,10 @@ public class ClassObject {
 	private String name;
 	private String tableName;
 	private List<JAttribute> attributes = new ArrayList<JAttribute>();
-
+	
+	private String fields = "";
+	private String paramns = "";
+	
 	public String getName() {
 		return name;
 	}
@@ -33,6 +36,26 @@ public class ClassObject {
 
 	public void setAttributes(List<JAttribute> columns) {
 		this.attributes = columns;
+	}
+	
+	
+	public String getFields() {
+		if (fields.isEmpty()){
+			String comma = "";
+			for(JAttribute at: attributes){
+				fields += comma + at.getDbFieldName();
+				paramns+= comma + "?";
+				comma = ", ";
+			}
+		}
+		return fields;
+	}
+	
+	public String getParamns() {
+		if (paramns.isEmpty())
+			getFields();
+		
+		return paramns;
 	}
 
 	@Override
