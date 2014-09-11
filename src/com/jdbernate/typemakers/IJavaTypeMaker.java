@@ -1,6 +1,6 @@
 package com.jdbernate.typemakers;
 
-public interface ITypeMaker {
+public interface IJavaTypeMaker {
 
 	public String getType(String typeTableColumn);
 	

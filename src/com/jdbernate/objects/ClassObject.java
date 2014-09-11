@@ -9,8 +9,7 @@ public class ClassObject {
 
 	private String name;
 	private String tableName;
-	private List<Attributes> attributes = new ArrayList<Attributes>();
-	private List<TableField> tableColumns = new ArrayList<TableField>();
+	private List<JAttribute> attributes = new ArrayList<JAttribute>();
 
 	public String getName() {
 		return name;
@@ -28,26 +27,18 @@ public class ClassObject {
 		this.tableName = tableName;
 	}
 
-	public List<Attributes> getColumns() {
+	public List<JAttribute> getAttributes() {
 		return attributes;
 	}
 
-	public void setColumns(List<Attributes> columns) {
+	public void setAttributes(List<JAttribute> columns) {
 		this.attributes = columns;
 	}
 
-	public List<TableField> getTableColumns() {
-		return tableColumns;
-	}
-
-	public void setTableColumns(List<TableField> tableColumns) {
-		this.tableColumns = tableColumns;
-	}
-	
 	@Override
 	public String toString() {
 		String retorno = name + "\n";
-		for (Attributes t : attributes)
+		for (JAttribute t : attributes)
 			retorno += t.getName() + " " + t.getType() + "\n";
 		
 		return retorno;

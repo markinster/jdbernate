@@ -12,9 +12,9 @@ public class DataBaseConector {
 
 	private String path;
 	private String dataBaseName;
-	private int sgbd;
 	private String user;
 	private String password;
+	private int sgbd;
 	
 	private	Connection con;
 
@@ -77,11 +77,13 @@ public class DataBaseConector {
 
 	public Connection getConnection() throws SQLException {
 		if (con == null || con.isClosed()){
+			
 			if (sgbd == SGBD_MYSQL) {
 				String sCon = "jdbc:mysql://" + this.path + "/" + this.dataBaseName;
 				con = DriverManager.getConnection(sCon, user, password);
 			}
-		}
+			
+		}		
 
 		return con;
 	}

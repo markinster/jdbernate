@@ -1,21 +1,21 @@
 package com.jdbernate;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 import com.jdbernate.dao.DataBaseConector;
+import com.jdbernate.dbproviders.DBProviderBuilder;
+import com.jdbernate.filewriters.ClassFileWriter;
 import com.jdbernate.services.ClassMaker;
-import com.jdbernate.typemakers.ITypeMaker;
-import com.jdbernate.typemakers.TypeMakerMySQL;
+import com.jdbernate.typemakers.IJavaTypeMaker;
+import com.jdbernate.typemakers.JavaTypeMakerMySQL;
 
 public class JDbernate {
 
 	// this TypeMaker is instanced in constructor of class
-	public static ITypeMaker typeMaker;
+	public static IJavaTypeMaker javaTypeMaker;
 
 	// list of tables from data base
 	private List<String> tables = new ArrayList<String>();
@@ -23,7 +23,7 @@ public class JDbernate {
 	// constructor
 	public JDbernate() {
 		if (DataBaseConector.getInstance().getSgbd() == DataBaseConector.SGBD_MYSQL) {
-			typeMaker = new TypeMakerMySQL();
+			javaTypeMaker = new JavaTypeMakerMySQL();
 		}
 	}
 
@@ -31,20 +31,19 @@ public class JDbernate {
 	 * this process receive a connection and will generate the JDBernate
 	 * architecture
 	 */
-	public void process(Connection con) throws SQLException {
-
-		String sql = "show tables";
-
-		PreparedStatement prepareStatement = con.prepareStatement(sql);
-		ResultSet rs = prepareStatement.executeQuery();
-
-		while (rs.next()) {
-			tables.add(rs.getString(1));
+	public void process() throws SQLException, IOException {
+		
+		if (javaTypeMaker == null){
+			if (DataBaseConector.getInstance().getSgbd() == DataBaseConector.SGBD_MYSQL) {
+				javaTypeMaker = new JavaTypeMakerMySQL();
+			}
 		}
+		
+		tables = DBProviderBuilder.getDBProvider().getTables();
 
-		ClassMaker classBuilder = new ClassMaker();
+		ClassMaker classMaker = new ClassMaker();
 		for (String table : tables) {
-			classBuilder.builder(table, con);
+			new ClassFileWriter().write(classMaker.builder(table));
 		}
 	}
 }

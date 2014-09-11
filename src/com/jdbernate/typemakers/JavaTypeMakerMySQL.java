@@ -1,6 +1,6 @@
 package com.jdbernate.typemakers;
 
-public class TypeMakerMySQL implements ITypeMaker {
+public class JavaTypeMakerMySQL implements IJavaTypeMaker {
 	private static final String INT = "int";
 	private static final String INTEGER = "integer";
 
