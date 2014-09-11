@@ -10,7 +10,8 @@ import com.jdbernate.objects.ClassObject;
 import com.jdbernate.objects.JAttribute;
 
 public class ClassFileWriter { 
-	File file;
+	
+	private File file;
 	private BufferedWriter w;
 	
 	public void write(ClassObject clazz) throws IOException{
