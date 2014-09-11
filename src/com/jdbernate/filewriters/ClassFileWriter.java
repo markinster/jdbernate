@@ -33,7 +33,6 @@ public class ClassFileWriter {
 	    
 	    w.write("\n");
 	    for (JAttribute at : clazz.getAttributes()){
-	    	w.write("\n");
 	    	w.write("    // " + at.getName() + ": Set and Get \n");
 	    	writeGetMethod(at);
 	    	writeSetMethod(at);
