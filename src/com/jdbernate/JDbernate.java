@@ -8,6 +8,7 @@ import java.util.List;
 import com.jdbernate.dao.DataBaseConector;
 import com.jdbernate.dbproviders.DBProviderBuilder;
 import com.jdbernate.filewriters.ClassFileWriter;
+import com.jdbernate.filewriters.DaoFileWriter;
 import com.jdbernate.services.ClassMaker;
 import com.jdbernate.typemakers.IJavaTypeMaker;
 import com.jdbernate.typemakers.JavaTypeMakerMySQL;
@@ -44,6 +45,7 @@ public class JDbernate {
 		ClassMaker classMaker = new ClassMaker();
 		for (String table : tables) {
 			new ClassFileWriter().write(classMaker.builder(table));
+			new DaoFileWriter().write(classMaker.builder(table));
 		}
 	}
 }

@@ -23,6 +23,18 @@ public class ClassFileWriter {
 	    
 	    w.write("package " + config.getPackageBase() + ";");
 	    w.write("\n");
+	    w.write("\n");
+	    
+	    for (JAttribute at : clazz.getAttributes()){
+	    	if (at.getType().toLowerCase().equals("bigdecimal")){
+	    		w.write("import java.math.BigDecimal;");
+	    		w.write("\n");
+	    	} else if  (at.getType().toLowerCase().equals("calendar")){
+	    		w.write("import java.util.Calendar;");
+	    		w.write("\n");
+	    	}
+	    }
+	    w.write("\n");
 	    
 	    w.write("public class " + clazz.getName() + " { ");
 	    w.write("\n");
