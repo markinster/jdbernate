@@ -11,7 +11,7 @@ import com.jdbernate.objects.TableField;
 
 public class ClassMaker {
 
-	public ClassObject builder(String table) throws SQLException {
+	public ClassObject builder(String table, boolean usePrefix) throws SQLException {
 
 		ClassObject clazz = new ClassObject();
 		clazz.setTableName(table);
@@ -25,7 +25,7 @@ public class ClassMaker {
 		
 		List<JAttribute> attributes = new ArrayList<JAttribute>();
 		for (TableField field : fields)
-			attributes.add(new ClassColumnMaker().getClassColumn(field));
+			attributes.add(new ClassColumnMaker().getClassColumn(field, usePrefix));
 
 		clazz.setAttributes(attributes);
 

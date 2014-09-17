@@ -36,8 +36,11 @@ public class DaoFileWriter {
 		w.write("\n");
 
 		defineConstants();
+
 		defineAttributes();
+		w.write("\n");
 		defineMehods();
+		w.write("\n");
 
 		w.write("}");
 
@@ -60,17 +63,38 @@ public class DaoFileWriter {
 
 	private void defineConstants() throws IOException {
 		// final INSERT
-		String s = "    private final String INSERT = \"insert into "
+		String s = "    private final String SQL_INSERT = \"INSERT INTO "
 				+ clazz.getTableName();
-		s += "(" + clazz.getFields() + ") values ( " + clazz.getParamns()
+		s += " (" + clazz.getFields() + " ) VALUES ( " + clazz.getParamns()
 				+ " );\";";
 		w.write(s);
 		w.write("\n");
 
 		// final UPDATE
-		s = "    private final String UPDATE = \"update "
+		String[] _fields = clazz.getFields().split(",");
+		for (int i = 0; i < _fields.length; i++)
+			_fields[i] = _fields[i] + " = ?";
+		
+		String fields = "";
+		String comma = "";
+		for (String f : _fields){
+			fields += comma + f;
+			comma = ",";
+		}
+			
+			
+		s = "    private final String SQL_UPDATE = \"UPDATE "
 				+ clazz.getTableName();
-		s += " SET " + clazz.getFields() + ";\";";
+		s += " SET " + fields + " WHERE ( CONDITION )  ;\";";
+		w.write(s);
+		w.write("\n");
+		
+		
+		// final DELETE
+		s = "    private final String SQL_DELETE = \"DELETE FROM "
+				+ clazz.getTableName();
+		s += " WHERE ( CONDITION ) ;\";";
+
 		w.write(s);
 		w.write("\n");
 	}
@@ -79,33 +103,56 @@ public class DaoFileWriter {
 		String s;
 		//
 		w.write("\n");
-		s = "    private " + clazz.getName() + " selectedObject;";
+		s = "    private " + clazz.getName() + " itemSelected;";
 		w.write(s);
-		w.write("\n");
 		w.write("\n");
 	}
 
 	private void defineMehods() throws IOException {
 		String s;
 		// METHODS
-		s = "    public void insert(){ ";
+		s = "    public void insert() { ";
 		w.write(s);
 		w.write("\n");
 
 		w.write("    }");
 		w.write("\n");
+		w.write("\n");
 
-		s = "    public void update(){ ";
+		s = "    public void update() { ";
 		w.write(s);
 		w.write("\n");
 
 		w.write("    }");
 		w.write("\n");
+		w.write("\n");
 
-		s = "    public void delete(){ ";
+		s = "    public void delete() { ";
 		w.write(s);
 		w.write("\n");
 
+		w.write("    }");
+		w.write("\n");
+		w.write("\n");
+		
+		s = "    public " + clazz.getName() + " getItemSelected() { ";
+		w.write(s);
+		w.write("\n");
+		s = "        return itemSelected;";
+		w.write(s);
+		w.write("\n");
+		
+		w.write("    }");
+		w.write("\n");
+		w.write("\n");
+		
+		s = "    public void setItemSelected("+ clazz.getName() + " newValue) { ";
+		w.write(s);
+		w.write("\n");
+		s = "        this.itemSelected = newValue;";
+		w.write(s);
+		w.write("\n");
+		
 		w.write("    }");
 		w.write("\n");
 	}

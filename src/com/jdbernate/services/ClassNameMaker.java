@@ -39,4 +39,19 @@ public class ClassNameMaker {
 		
 		return className.isEmpty() ? null : className;
 	}
+
+	public String getAttributeName(String columnName, boolean havePrefix) {
+		if (!havePrefix)
+			return getClassName(columnName);
+		
+		String[] columnBroken = columnName.split("_");
+		String colName = "";
+		for (String columnPart : columnBroken){
+			if (!columnPart.equals(columnBroken[0]) || columnBroken.length < 2){
+				colName += columnPart.substring(0,1).toUpperCase() + columnPart.substring(1).toLowerCase();
+			}
+		}
+		
+		return colName.isEmpty() ? null : colName;
+	}
 }

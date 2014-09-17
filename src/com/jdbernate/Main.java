@@ -9,11 +9,13 @@ public class Main {
 
 	public static void main(String[] args) {
 		DataBaseConector data = DataBaseConector.getInstance();
-		data.setDataBaseName("mercurio").setUser("root").setPassword("123456")
+		data.setDataBaseName("loja").setUser("root").setPassword("123456")
 				.setPath("localhost").setSgbd(DataBaseConector.SGBD_MYSQL);
 		
 		try {
-			new JDbernate().process();
+			JDbernate jDbernate = new JDbernate();
+			jDbernate.setUsePrefix(true);
+			jDbernate.process();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} catch (IOException e) {

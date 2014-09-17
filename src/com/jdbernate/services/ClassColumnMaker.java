@@ -8,9 +8,10 @@ import com.jdbernate.typemakers.JavaTypeMakerMySQL;
 public class ClassColumnMaker {
 
 	//created a attribute from table fields	
-	public JAttribute getClassColumn(TableField tableColumn) {
+	public JAttribute getClassColumn(TableField tableColumn, boolean usePrefix) {
 		JAttribute cCol = new JAttribute();
-		String name = new ClassNameMaker().getClassName(tableColumn.getName());		
+		String name = new ClassNameMaker().getAttributeName(tableColumn.getName(), usePrefix);		
+		
 		name = name.substring(0, 1).toLowerCase() + name.substring(1);
 		
 		cCol.setName(name);
