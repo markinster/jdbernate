@@ -15,8 +15,6 @@ import com.jdbernate.typemakers.JavaTypeMakerMySQL;
 
 public class JDbernate {
 	
-	private boolean usePrefix = false;
-
 	// this TypeMaker is instanced in constructor of class
 	public static IJavaTypeMaker javaTypeMaker;
 
@@ -28,11 +26,7 @@ public class JDbernate {
 		if (DataBaseConector.getInstance().getSgbd() == DataBaseConector.SGBD_MYSQL) {
 			javaTypeMaker = new JavaTypeMakerMySQL();
 		}
-	}
-	
-	public void setUsePrefix(boolean usePrefix) {
-		this.usePrefix = usePrefix;
-	}
+	}	
 
 	/*
 	 * this process receive a connection and will generate the JDBernate
@@ -50,8 +44,8 @@ public class JDbernate {
 
 		ClassMaker classMaker = new ClassMaker();
 		for (String table : tables) {
-			new ClassFileWriter().write(classMaker.builder(table, usePrefix));
-			new DaoFileWriter().write(classMaker.builder(table, usePrefix));
+			new ClassFileWriter().write(classMaker.builder(table));
+			new DaoFileWriter().write(classMaker.builder(table));
 		}
 	}
 }

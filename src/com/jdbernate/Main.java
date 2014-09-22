@@ -14,7 +14,6 @@ public class Main {
 		
 		try {
 			JDbernate jDbernate = new JDbernate();
-			jDbernate.setUsePrefix(true);
 			jDbernate.process();
 		} catch (SQLException e) {
 			e.printStackTrace();
