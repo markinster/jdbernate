@@ -6,7 +6,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 import com.jdbernate.config.JDbernateConfig;
-import com.jdbernate.objects.ClassObject;
+import com.jdbernate.objects.ClassScheme;
 
 public class DaoFileWriter {
 	private File file;
@@ -14,9 +14,9 @@ public class DaoFileWriter {
 	private JDbernateConfig config;
 	private String path;
 	private String className;
-	private ClassObject clazz;
+	private ClassScheme clazz;
 
-	public void write(ClassObject clazz) throws IOException {
+	public void write(ClassScheme clazz) throws IOException {
 
 		this.clazz = clazz;
 		config = new JDbernateConfig();

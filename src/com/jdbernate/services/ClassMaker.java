@@ -5,15 +5,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.jdbernate.dbproviders.DBProviderBuilder;
-import com.jdbernate.objects.JAttribute;
-import com.jdbernate.objects.ClassObject;
-import com.jdbernate.objects.TableField;
+import com.jdbernate.objects.AttributeScheme;
+import com.jdbernate.objects.ClassScheme;
+import com.jdbernate.objects.Column;
 
 public class ClassMaker {
 
-	public ClassObject builder(String table, boolean usePrefix) throws SQLException {
+	public ClassScheme builder(String table, boolean usePrefix) throws SQLException {
 
-		ClassObject clazz = new ClassObject();
+		ClassScheme clazz = new ClassScheme();
 		clazz.setTableName(table);
 
 		// build class Name from table Name
@@ -21,10 +21,10 @@ public class ClassMaker {
 		clazz.setName(className);
 
 		// build a list of fields
-		List<TableField> fields = DBProviderBuilder.getDBProvider().getFields(table);
+		List<Column> fields = DBProviderBuilder.getDBProvider().getFields(table);
 		
-		List<JAttribute> attributes = new ArrayList<JAttribute>();
-		for (TableField field : fields)
+		List<AttributeScheme> attributes = new ArrayList<AttributeScheme>();
+		for (Column field : fields)
 			attributes.add(new ClassColumnMaker().getClassColumn(field, usePrefix));
 
 		clazz.setAttributes(attributes);

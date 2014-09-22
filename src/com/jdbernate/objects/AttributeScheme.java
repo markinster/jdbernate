@@ -1,6 +1,6 @@
 package com.jdbernate.objects;
 
-public class JAttribute extends Column {	
+public class AttributeScheme extends ColumnBase {	
 
 	private String dbFieldName;
 	

@@ -2,10 +2,10 @@ package com.jdbernate.dbproviders;
 
 import java.util.List;
 
-import com.jdbernate.objects.TableField;
+import com.jdbernate.objects.Column;
 
 public interface IDBProvider {
 
 	public List<String> getTables();
-	public List<TableField> getFields(String tableName);
+	public List<Column> getFields(String tableName);
 }

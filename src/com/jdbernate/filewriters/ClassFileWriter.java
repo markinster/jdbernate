@@ -6,15 +6,15 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 import com.jdbernate.config.JDbernateConfig;
-import com.jdbernate.objects.ClassObject;
-import com.jdbernate.objects.JAttribute;
+import com.jdbernate.objects.ClassScheme;
+import com.jdbernate.objects.AttributeScheme;
 
 public class ClassFileWriter { 
 	
 	private File file;
 	private BufferedWriter w;
 	
-	public void write(ClassObject clazz) throws IOException{
+	public void write(ClassScheme clazz) throws IOException{
 		
 		JDbernateConfig config = new JDbernateConfig();
 		
@@ -25,7 +25,7 @@ public class ClassFileWriter {
 	    w.write("\n");
 	    w.write("\n");
 	    
-	    for (JAttribute at : clazz.getAttributes()){
+	    for (AttributeScheme at : clazz.getAttributes()){
 	    	if (at.getType().toLowerCase().equals("bigdecimal")){
 	    		w.write("import java.math.BigDecimal;");
 	    		w.write("\n");
@@ -38,13 +38,13 @@ public class ClassFileWriter {
 	    
 	    w.write("public class " + clazz.getName() + " { ");
 	    w.write("\n");
-	    for (JAttribute at : clazz.getAttributes()){
+	    for (AttributeScheme at : clazz.getAttributes()){
 	    	w.write("    private " + at.getType() + " " + at.getName() + ";");
 	    	w.write("\n");
 	    }
 	    
 	    w.write("\n");
-	    for (JAttribute at : clazz.getAttributes()){
+	    for (AttributeScheme at : clazz.getAttributes()){
 	    	w.write("    // " + at.getName() + ": Set and Get \n");
 	    	writeGetMethod(at);
 	    	writeSetMethod(at);
@@ -54,7 +54,7 @@ public class ClassFileWriter {
 	    w.close();
 	}
 	
-	private void writeGetMethod(JAttribute at) throws IOException{
+	private void writeGetMethod(AttributeScheme at) throws IOException{
 		String string = "    public " + at.getType() + " get"
 		+ at.getName().substring(0,1).toUpperCase() + at.getName().substring(1)
 		+ "() {";
@@ -72,7 +72,7 @@ public class ClassFileWriter {
 		w.write("\n");		
 	}
 	
-	private void writeSetMethod(JAttribute at) throws IOException{
+	private void writeSetMethod(AttributeScheme at) throws IOException{
 		String string = "    public void set"
 		+ at.getName().substring(0,1).toUpperCase() + at.getName().substring(1)
 		+ "("+ at.getType() +" newValue ) {";

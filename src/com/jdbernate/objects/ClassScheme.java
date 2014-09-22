@@ -5,11 +5,11 @@ import java.util.List;
 
 import javax.swing.text.TabExpander;
 
-public class ClassObject {
+public class ClassScheme {
 
 	private String name;
 	private String tableName;
-	private List<JAttribute> attributes = new ArrayList<JAttribute>();
+	private List<AttributeScheme> attributes = new ArrayList<AttributeScheme>();
 	
 	private String fields = "";
 	private String paramns = "";
@@ -30,11 +30,11 @@ public class ClassObject {
 		this.tableName = tableName;
 	}
 
-	public List<JAttribute> getAttributes() {
+	public List<AttributeScheme> getAttributes() {
 		return attributes;
 	}
 
-	public void setAttributes(List<JAttribute> columns) {
+	public void setAttributes(List<AttributeScheme> columns) {
 		this.attributes = columns;
 	}
 	
@@ -42,7 +42,7 @@ public class ClassObject {
 	public String getFields() {
 		if (fields.isEmpty()){
 			String comma = "";
-			for(JAttribute at: attributes){
+			for(AttributeScheme at: attributes){
 				fields += comma + at.getDbFieldName();
 				paramns+= comma + "?";
 				comma = ", ";
@@ -61,7 +61,7 @@ public class ClassObject {
 	@Override
 	public String toString() {
 		String retorno = name + "\n";
-		for (JAttribute t : attributes)
+		for (AttributeScheme t : attributes)
 			retorno += t.getName() + " " + t.getType() + "\n";
 		
 		return retorno;

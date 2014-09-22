@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.jdbernate.dao.DataBaseConector;
-import com.jdbernate.objects.TableField;
+import com.jdbernate.objects.Column;
 
 public class MySQLProvider implements IDBProvider {
 
@@ -37,12 +37,12 @@ public class MySQLProvider implements IDBProvider {
 	}
 
 	@Override
-	public List<TableField> getFields(String tableName) {
+	public List<Column> getFields(String tableName) {
 		Connection con;
 		try {
 			con = DataBaseConector.getInstance().getConnection();
 
-			List<TableField> fields = new ArrayList<TableField>();
+			List<Column> fields = new ArrayList<Column>();
 
 			// fint all fields from table
 			String sql = "show fields from " + tableName + " ; ";
@@ -50,7 +50,7 @@ public class MySQLProvider implements IDBProvider {
 			ResultSet rs = con.prepareStatement(sql).executeQuery();
 
 			while (rs.next()) {
-				TableField field = new TableField();
+				Column field = new Column();
 				field.setName(rs.getString("Field"));
 				field.setType(rs.getString("Type"));
 
