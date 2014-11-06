@@ -1,3 +1,8 @@
+/*
+*      REMINDER: Refactor this class for use MAP <06-11-2014>
+*/
+
+
 package com.jdbernate.typemakers;
 
 public class JavaTypeMakerMySQL implements IJavaTypeMaker {
