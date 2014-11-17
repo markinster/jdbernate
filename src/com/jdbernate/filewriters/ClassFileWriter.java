@@ -6,8 +6,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 import com.jdbernate.config.JDbernateConfig;
-import com.jdbernate.objects.ClassScheme;
 import com.jdbernate.objects.AttributeScheme;
+import com.jdbernate.objects.ClassScheme;
 
 public class ClassFileWriter { 
 	

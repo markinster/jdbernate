@@ -22,23 +22,26 @@ public class DataBaseConector {
 
 	private static DataBaseConector instance;
 
-	private DataBaseConector() throws IOException {
-		
-		Properties properties = new PropertiesLoader().getProperties();
-		sgbd = properties.getProperty("sgbd").toLowerCase();
-		path = properties.getProperty("database.path");
-		dataBaseName = properties.getProperty("database.name");
-		port = properties.getProperty("database.port");
-		user = properties.getProperty("database.user");
-		password = properties.getProperty("database.password");
+	private DataBaseConector()  {
 		
 	}
 
-	public static DataBaseConector getInstance() throws IOException {
+	public static DataBaseConector getInstance() {
 		if (instance == null)
 			instance = new DataBaseConector();	
 
 		return instance;
+	}
+	
+	public void load() throws IOException { 
+		
+		Properties properties = new PropertiesLoader().getProperties();
+		instance.sgbd = properties.getProperty("sgbd").trim().toLowerCase();
+		instance.path = properties.getProperty("database.path").trim();
+		instance.dataBaseName = properties.getProperty("database.name").trim();
+		instance.port = properties.getProperty("database.port").trim();
+		instance.user = properties.getProperty("database.user").trim();
+		instance.password = properties.getProperty("database.password").trim();
 	}
 
 	public String getPath() {

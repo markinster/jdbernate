@@ -12,7 +12,7 @@ public class Main {
 	public static void main(String[] args) {		
 		try {
 			// connect to data base
-			DataBaseConector.getInstance();	
+			DataBaseConector.getInstance().load();	
 			
 			File f = new File(new JDbernateConfig().FOLDER);
 			f.mkdirs();
