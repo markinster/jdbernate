@@ -1,31 +1,42 @@
-package com.jdbernate.dao;
+package com.jdbernate.conector;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-
-import org.omg.PortableInterceptor.INACTIVE;
+import java.util.Properties;
 
 public class DataBaseConector {
 
-	public static int SGBD_MYSQL = 1;
+	public static String SGBD_MYSQL = "mysql";
 
+	private String sgbd;
 	private String path;
+	private String port;
 	private String dataBaseName;
 	private String user;
 	private String password;
-	private int sgbd;
+	
 	
 	private	Connection con;
 
 	private static DataBaseConector instance;
 
-	private DataBaseConector() {
+	private DataBaseConector() throws IOException {
+		
+		Properties properties = new PropertiesLoader().getProperties();
+		sgbd = properties.getProperty("sgbd").toLowerCase();
+		path = properties.getProperty("database.path");
+		dataBaseName = properties.getProperty("database.name");
+		port = properties.getProperty("database.port");
+		user = properties.getProperty("database.user");
+		password = properties.getProperty("database.password");
+		
 	}
 
-	public static DataBaseConector getInstance() {
+	public static DataBaseConector getInstance() throws IOException {
 		if (instance == null)
-			instance = new DataBaseConector();
+			instance = new DataBaseConector();	
 
 		return instance;
 	}
@@ -48,11 +59,11 @@ public class DataBaseConector {
 		return this;
 	}
 
-	public int getSgbd() {
+	public String getSgbd() {
 		return sgbd;
 	}
 
-	public DataBaseConector setSgbd(int sgbd) {
+	public DataBaseConector setSgbd(String sgbd) {
 		this.sgbd = sgbd;
 		return this;
 	}
@@ -78,7 +89,7 @@ public class DataBaseConector {
 	public Connection getConnection() throws SQLException {
 		if (con == null || con.isClosed()){
 			
-			if (sgbd == SGBD_MYSQL) {
+			if (sgbd.equals(SGBD_MYSQL)) {
 				String sCon = "jdbc:mysql://" + this.path + "/" + this.dataBaseName;
 				con = DriverManager.getConnection(sCon, user, password);
 			}

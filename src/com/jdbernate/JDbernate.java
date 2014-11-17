@@ -5,7 +5,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.jdbernate.dao.DataBaseConector;
+import com.jdbernate.conector.DataBaseConector;
 import com.jdbernate.dbproviders.DBProviderBuilder;
 import com.jdbernate.filewriters.ClassFileWriter;
 import com.jdbernate.filewriters.DaoFileWriter;
@@ -22,8 +22,8 @@ public class JDbernate {
 	private List<String> tables = new ArrayList<String>();
 
 	// constructor
-	public JDbernate() {
-		if (DataBaseConector.getInstance().getSgbd() == DataBaseConector.SGBD_MYSQL) {
+	public JDbernate() throws IOException {
+		if (DataBaseConector.getInstance().getSgbd().equals(DataBaseConector.SGBD_MYSQL)) {
 			javaTypeMaker = new JavaTypeMakerMySQL();
 		}
 	}	
@@ -32,10 +32,10 @@ public class JDbernate {
 	 * this process receive a connection and will generate the JDBernate
 	 * architecture
 	 */
-	public void process() throws SQLException, IOException {
+	public void execute() throws SQLException, IOException {
 		
 		if (javaTypeMaker == null){
-			if (DataBaseConector.getInstance().getSgbd() == DataBaseConector.SGBD_MYSQL) {
+			if (DataBaseConector.getInstance().getSgbd().equals(DataBaseConector.SGBD_MYSQL)) {
 				javaTypeMaker = new JavaTypeMakerMySQL();
 			}
 		}

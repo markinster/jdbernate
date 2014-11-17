@@ -1,5 +1,6 @@
 package com.jdbernate.services;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,7 +12,7 @@ import com.jdbernate.objects.Column;
 
 public class ClassMaker {
 
-	public ClassScheme builder(String table) throws SQLException {
+	public ClassScheme builder(String table) throws SQLException, IOException {
 
 		ClassScheme clazz = new ClassScheme();
 		clazz.setTableName(table);

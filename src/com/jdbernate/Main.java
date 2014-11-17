@@ -1,20 +1,25 @@
 package com.jdbernate;
 
+import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
 
-import com.jdbernate.dao.DataBaseConector;
+import com.jdbernate.conector.DataBaseConector;
+import com.jdbernate.config.JDbernateConfig;
 
 public class Main {
 
-	public static void main(String[] args) {
-		DataBaseConector data = DataBaseConector.getInstance();
-		data.setDataBaseName("loja").setUser("root").setPassword("123456")
-				.setPath("localhost").setSgbd(DataBaseConector.SGBD_MYSQL);
-		
+	public static void main(String[] args) {		
 		try {
+			// connect to data base
+			DataBaseConector.getInstance();	
+			
+			File f = new File(new JDbernateConfig().getPathBase());
+			f.mkdirs();
+			
 			JDbernate jDbernate = new JDbernate();
-			jDbernate.process();
+			jDbernate.execute();
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} catch (IOException e) {

@@ -1,5 +1,6 @@
 package com.jdbernate.dbproviders;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -7,13 +8,13 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.jdbernate.dao.DataBaseConector;
+import com.jdbernate.conector.DataBaseConector;
 import com.jdbernate.objects.Column;
 
 public class MySQLProvider implements IDBProvider {
 
 	@Override
-	public List<String> getTables() {
+	public List<String> getTables() throws IOException {
 		List<String> tables = new ArrayList<String>();
 
 		Connection con;
@@ -37,7 +38,7 @@ public class MySQLProvider implements IDBProvider {
 	}
 
 	@Override
-	public List<Column> getFields(String tableName) {
+	public List<Column> getFields(String tableName) throws IOException {
 		Connection con;
 		try {
 			con = DataBaseConector.getInstance().getConnection();

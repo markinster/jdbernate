@@ -4,8 +4,8 @@ import java.io.Serializable;
 
 public class JDbernateConfig implements Serializable {
 
-	private String pathBase = "src//com//jdbernate//classes";
-	private String packageBase = "com.jdbernate.classes";
+	private String pathBase = "src//com//jdbernate//entities";
+	private String packageBase = "com.jdbernate.entities";
 
 	public String getPathBase() {
 		return pathBase;
