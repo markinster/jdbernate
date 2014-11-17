@@ -14,7 +14,7 @@ public class Main {
 			// connect to data base
 			DataBaseConector.getInstance();	
 			
-			File f = new File(new JDbernateConfig().getPathBase());
+			File f = new File(new JDbernateConfig().FOLDER);
 			f.mkdirs();
 			
 			JDbernate jDbernate = new JDbernate();

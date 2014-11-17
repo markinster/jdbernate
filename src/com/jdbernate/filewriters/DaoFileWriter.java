@@ -20,7 +20,7 @@ public class DaoFileWriter {
 
 		this.clazz = clazz;
 		config = new JDbernateConfig();
-		path = config.getPathBase() + "//dao";
+		path = config.FOLDER + "//dao";
 		file = new File(path);
 		file.mkdir();
 		className = clazz.getName() + "DAO";
@@ -49,14 +49,14 @@ public class DaoFileWriter {
 
 	private void definePackage() throws IOException {
 		// write package
-		w.write("package " + config.getPackageBase() + ".dao;");
+		w.write("package " + config.PACKAGE + ".dao;");
 		w.write("\n");
 		w.write("\n");
 	}
 
 	private void defineImports() throws IOException {
 		// import
-		w.write("import " + config.getPackageBase() + ".*;");
+		w.write("import " + config.PACKAGE + ".*;");
 		w.write("\n");
 		w.write("\n");
 	}

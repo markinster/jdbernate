@@ -18,10 +18,10 @@ public class ClassFileWriter {
 		
 		JDbernateConfig config = new JDbernateConfig();
 		
-		file = new File(config.getPathBase() +"//" + clazz.getName() + ".java");
+		file = new File(config.FOLDER +"//" + clazz.getName() + ".java");
 	    w = new BufferedWriter(new FileWriter (file));
 	    
-	    w.write("package " + config.getPackageBase() + ";");
+	    w.write("package " + config.PACKAGE + ";");
 	    w.write("\n");
 	    w.write("\n");
 	    
