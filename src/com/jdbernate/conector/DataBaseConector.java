@@ -92,7 +92,7 @@ public class DataBaseConector {
 	public Connection getConnection() throws SQLException {
 		if (con == null || con.isClosed()){
 			
-			if (sgbd.equals(SGBD_MYSQL)) {
+			if (SGBD_MYSQL.equals(sgbd)) {
 				String sCon = "jdbc:mysql://" + this.path + "/" + this.dataBaseName;
 				con = DriverManager.getConnection(sCon, user, password);
 			}
