@@ -1,3 +1,4 @@
+//resposability this class is create the class for table 
 package com.jdbernate.filewriters;
 
 import java.io.BufferedWriter;
@@ -25,11 +26,12 @@ public class ClassFileWriter {
 	    w.write("\n");
 	    w.write("\n");
 	    
+	    //verify a need to imports
 	    for (AttributeScheme at : clazz.getAttributes()){
-	    	if (at.getType().toLowerCase().equals("bigdecimal")){
+	    	if ("bigdecimal".equals(at.getType().toLowerCase())){
 	    		w.write("import java.math.BigDecimal;");
 	    		w.write("\n");
-	    	} else if  (at.getType().toLowerCase().equals("calendar")){
+	    	} else if  ("calendar".equals(at.getType().toLowerCase())){
 	    		w.write("import java.util.Calendar;");
 	    		w.write("\n");
 	    	}
@@ -54,6 +56,7 @@ public class ClassFileWriter {
 	    w.close();
 	}
 	
+	//create the method GET for attribute
 	private void writeGetMethod(AttributeScheme at) throws IOException{
 		String string = "    public " + at.getType() + " get"
 		+ at.getName().substring(0,1).toUpperCase() + at.getName().substring(1)
@@ -72,6 +75,7 @@ public class ClassFileWriter {
 		w.write("\n");		
 	}
 	
+	//create the method SET for attribute
 	private void writeSetMethod(AttributeScheme at) throws IOException{
 		String string = "    public void set"
 		+ at.getName().substring(0,1).toUpperCase() + at.getName().substring(1)
