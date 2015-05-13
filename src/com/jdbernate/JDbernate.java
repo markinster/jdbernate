@@ -43,9 +43,13 @@ public class JDbernate {
 		tables = DBProviderBuilder.getDBProvider().getTables();
 
 		ClassMaker classMaker = new ClassMaker();
+		System.out.println("\n[INFO] Processing \n");
 		for (String table : tables) {
 			new ClassFileWriter().write(classMaker.builder(table));
+			System.out.print(".");
 			new DaoFileWriter().write(classMaker.builder(table));
 		}
+		System.out.print(" \\o/");
+		System.out.println("\n\n[INFO] Process finished ");
 	}
 }

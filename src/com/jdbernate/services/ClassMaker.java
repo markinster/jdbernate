@@ -28,8 +28,6 @@ public class ClassMaker {
 			attributes.add(new ClassColumnMaker().getClassColumn(field));
 
 		clazz.setAttributes(attributes);
-
-		System.out.println(clazz);
 		
 		return clazz;
 	}
