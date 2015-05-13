@@ -4,8 +4,8 @@ import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
 
-import com.jdbernate.conector.DataBaseConnector;
 import com.jdbernate.config.JDbernateConfig;
+import com.jdbernate.connection.DataBaseConnector;
 
 public class Main {
 

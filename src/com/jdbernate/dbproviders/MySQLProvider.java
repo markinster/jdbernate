@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.jdbernate.conector.DataBaseConnector;
+import com.jdbernate.connection.DataBaseConnector;
 import com.jdbernate.objects.Column;
 
 public class MySQLProvider implements IDBProvider {

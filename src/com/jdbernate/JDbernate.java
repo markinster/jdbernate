@@ -5,7 +5,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.jdbernate.conector.DataBaseConnector;
+import com.jdbernate.connection.DataBaseConnector;
 import com.jdbernate.dbproviders.DBProviderBuilder;
 import com.jdbernate.filewriters.ClassFileWriter;
 import com.jdbernate.filewriters.DaoFileWriter;

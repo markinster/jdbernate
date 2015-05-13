@@ -1,4 +1,4 @@
-package com.jdbernate.conector;
+package com.jdbernate.connection;
 
 import java.io.FileInputStream;
 import java.io.IOException;

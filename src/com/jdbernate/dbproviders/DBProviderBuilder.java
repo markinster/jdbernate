@@ -1,6 +1,6 @@
 package com.jdbernate.dbproviders;
 
-import com.jdbernate.conector.DataBaseConnector;
+import com.jdbernate.connection.DataBaseConnector;
 
 public class DBProviderBuilder {
 
