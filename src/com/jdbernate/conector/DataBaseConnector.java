@@ -6,7 +6,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Properties;
 
-public class DataBaseConector {
+public class DataBaseConnector {
 
 	public static String SGBD_MYSQL = "mysql";
 
@@ -20,15 +20,15 @@ public class DataBaseConector {
 	
 	private	Connection con;
 
-	private static DataBaseConector instance;
+	private static DataBaseConnector instance;
 
-	private DataBaseConector()  {
+	private DataBaseConnector()  {
 		
 	}
 
-	public static DataBaseConector getInstance() {
+	public static DataBaseConnector getInstance() {
 		if (instance == null)
-			instance = new DataBaseConector();	
+			instance = new DataBaseConnector();	
 
 		return instance;
 	}
@@ -48,7 +48,7 @@ public class DataBaseConector {
 		return path;
 	}
 
-	public DataBaseConector setPath(String path) {
+	public DataBaseConnector setPath(String path) {
 		this.path = path;
 		return this;
 	}
@@ -57,7 +57,7 @@ public class DataBaseConector {
 		return dataBaseName;
 	}
 
-	public DataBaseConector setDataBaseName(String dataBaseName) {
+	public DataBaseConnector setDataBaseName(String dataBaseName) {
 		this.dataBaseName = dataBaseName;
 		return this;
 	}
@@ -66,7 +66,7 @@ public class DataBaseConector {
 		return sgbd;
 	}
 
-	public DataBaseConector setSgbd(String sgbd) {
+	public DataBaseConnector setSgbd(String sgbd) {
 		this.sgbd = sgbd;
 		return this;
 	}
@@ -75,7 +75,7 @@ public class DataBaseConector {
 		return user;
 	}
 
-	public DataBaseConector setUser(String user) {
+	public DataBaseConnector setUser(String user) {
 		this.user = user;
 		return this;
 	}
@@ -84,7 +84,7 @@ public class DataBaseConector {
 		return password;
 	}
 
-	public DataBaseConector setPassword(String password) {
+	public DataBaseConnector setPassword(String password) {
 		this.password = password;
 		return this;
 	}

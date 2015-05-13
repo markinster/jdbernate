@@ -4,7 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
 
-import com.jdbernate.conector.DataBaseConector;
+import com.jdbernate.conector.DataBaseConnector;
 import com.jdbernate.config.JDbernateConfig;
 
 public class Main {
@@ -12,7 +12,7 @@ public class Main {
 	public static void main(String[] args) {		
 		try {
 			// connect to data base
-			DataBaseConector.getInstance().load();	
+			DataBaseConnector.getInstance().load();	
 			
 			File f = new File(new JDbernateConfig().FOLDER);
 			f.mkdirs();

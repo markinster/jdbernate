@@ -1,11 +1,11 @@
 package com.jdbernate.dbproviders;
 
-import com.jdbernate.conector.DataBaseConector;
+import com.jdbernate.conector.DataBaseConnector;
 
 public class DBProviderBuilder {
 
 	public static IDBProvider getDBProvider()  {
-		if (DataBaseConector.getInstance().getSgbd().equals(DataBaseConector.SGBD_MYSQL)){
+		if (DataBaseConnector.getInstance().getSgbd().equals(DataBaseConnector.SGBD_MYSQL)){
 			return new MySQLProvider();
 		}
 		

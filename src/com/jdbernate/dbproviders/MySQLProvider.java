@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.jdbernate.conector.DataBaseConector;
+import com.jdbernate.conector.DataBaseConnector;
 import com.jdbernate.objects.Column;
 
 public class MySQLProvider implements IDBProvider {
@@ -18,7 +18,7 @@ public class MySQLProvider implements IDBProvider {
 
 		Connection con;
 		try {
-			con = DataBaseConector.getInstance().getConnection();
+			con = DataBaseConnector.getInstance().getConnection();
 
 			String sql = "show tables";
 			PreparedStatement prepareStatement = con.prepareStatement(sql);
@@ -40,7 +40,7 @@ public class MySQLProvider implements IDBProvider {
 	public List<Column> getFields(String tableName)  {
 		Connection con;
 		try {
-			con = DataBaseConector.getInstance().getConnection();
+			con = DataBaseConnector.getInstance().getConnection();
 
 			List<Column> fields = new ArrayList<Column>();
 
