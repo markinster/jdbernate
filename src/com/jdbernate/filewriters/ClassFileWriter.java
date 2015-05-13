@@ -26,6 +26,8 @@ public class ClassFileWriter {
 	    w.write("\n");
 	    w.write("\n");
 	    
+	    w.write("import com.jdbernate.annotations.*;\n");
+	    
 	    //verify a need to imports
 	    for (AttributeScheme at : clazz.getAttributes()){
 	    	if ("bigdecimal".equals(at.getType().toLowerCase())){
@@ -41,8 +43,9 @@ public class ClassFileWriter {
 	    w.write("public class " + clazz.getName() + " { ");
 	    w.write("\n");
 	    for (AttributeScheme at : clazz.getAttributes()){
+	    	w.write(String.format("    @DataBaseField(name = \"%s\")\n", at.getTableOriginalName()));
 	    	w.write("    private " + at.getType() + " " + at.getName() + ";");
-	    	w.write("\n");
+	    	w.write("\n\n");
 	    }
 	    
 	    w.write("\n");

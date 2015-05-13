@@ -17,6 +17,7 @@ public class ClassColumnMaker {
 		cCol.setName(name);
 		cCol.setType(JDbernate.javaTypeMaker.getType(tableColumn.getType()));
 		cCol.setDbFieldName(tableColumn.getName());
+		cCol.setTableOriginalName(tableColumn.getName());
 
 		return cCol;
 	}
