@@ -1,6 +1,6 @@
 package com.jdbernate.annotations;
 
-public @interface DataBaseField {
+public @interface Column {
 	
 	String name();
 

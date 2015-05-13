@@ -43,7 +43,7 @@ public class ClassFileWriter {
 	    w.write("public class " + clazz.getName() + " { ");
 	    w.write("\n");
 	    for (AttributeScheme at : clazz.getAttributes()){
-	    	w.write(String.format("    @DataBaseField(name = \"%s\")\n", at.getTableOriginalName()));
+	    	w.write(String.format("    @Column(name = \"%s\")\n", at.getTableOriginalName()));
 	    	w.write("    private " + at.getType() + " " + at.getName() + ";");
 	    	w.write("\n\n");
 	    }
