@@ -5,13 +5,12 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
-import com.jdbernate.config.JDbernateConfig;
+import com.jdbernate.connection.DataBaseConnector;
 import com.jdbernate.objects.ClassScheme;
 
 public class DaoFileWriter {
 	private File file;
 	private BufferedWriter w;
-	private JDbernateConfig config;
 	private String path;
 	private String className;
 	private ClassScheme clazz;
@@ -19,8 +18,7 @@ public class DaoFileWriter {
 	public void write(ClassScheme clazz) throws IOException {
 
 		this.clazz = clazz;
-		config = new JDbernateConfig();
-		path = config.FOLDER + "//dao";
+		path = DataBaseConnector.getInstance().getFolder() + "//dao";
 		file = new File(path);
 		file.mkdir();
 		className = clazz.getName() + "DAO";
@@ -49,14 +47,14 @@ public class DaoFileWriter {
 
 	private void definePackage() throws IOException {
 		// write package
-		w.write("package " + config.PACKAGE + ".dao;");
+		w.write("package " + DataBaseConnector.getInstance().getPACKAGE() + ".dao;");
 		w.write("\n");
 		w.write("\n");
 	}
 
 	private void defineImports() throws IOException {
 		// import
-		w.write("import " + config.PACKAGE + ".*;");
+		w.write("import " + DataBaseConnector.getInstance().getPACKAGE() + ".*;");
 		w.write("\n");
 		w.write("\n");
 	}

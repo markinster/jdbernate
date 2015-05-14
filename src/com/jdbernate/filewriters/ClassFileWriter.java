@@ -6,7 +6,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
-import com.jdbernate.config.JDbernateConfig;
+import com.jdbernate.connection.DataBaseConnector;
 import com.jdbernate.objects.AttributeScheme;
 import com.jdbernate.objects.ClassScheme;
 
@@ -17,12 +17,10 @@ public class ClassFileWriter {
 	
 	public void write(ClassScheme clazz) throws IOException{
 		
-		JDbernateConfig config = new JDbernateConfig();
-		
-		file = new File(config.FOLDER +"//" + clazz.getName() + ".java");
+		file = new File(DataBaseConnector.getInstance().getFolder() +"//" + clazz.getName() + ".java");
 	    w = new BufferedWriter(new FileWriter (file));
 	    
-	    w.write("package " + config.PACKAGE + ";");
+	    w.write("package " + DataBaseConnector.getInstance().getPACKAGE() + ";");
 	    w.write("\n");
 	    w.write("\n");
 	    

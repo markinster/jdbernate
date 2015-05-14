@@ -17,6 +17,8 @@ public class DataBaseConnector {
 	private String user;
 	private String password;
 	
+	private String folder = "src//com//jdbernate//entities";
+	private String PACKAGE = "com.jdbernate.entities";	
 	
 	private	Connection con;
 
@@ -42,6 +44,15 @@ public class DataBaseConnector {
 		instance.port = properties.getProperty("database.port").trim();
 		instance.user = properties.getProperty("database.user").trim();
 		instance.password = properties.getProperty("database.password").trim();
+		
+		String pak = properties.getProperty("database.package").trim();
+		if (pak != null && !pak.trim().isEmpty()) {
+			PACKAGE = pak;
+			folder = "src";
+			String[] split = pak.split("\\.");
+			for (String folders : split) 
+				folder += "//" + folders;			
+		}
 	}
 
 	public String getPath() {
@@ -87,6 +98,14 @@ public class DataBaseConnector {
 	public DataBaseConnector setPassword(String password) {
 		this.password = password;
 		return this;
+	}
+	
+	public String getFolder() {
+		return folder;
+	}
+	
+	public String getPACKAGE() {
+		return PACKAGE;
 	}
 
 	public Connection getConnection() throws SQLException {
