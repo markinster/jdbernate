@@ -64,9 +64,16 @@ public class CSharpDaoFW implements IFileWriter{
 	private String getFields() {
 		String fields = "\n";
 		
-		String[] _fields = clazz.getFields().split(",");
-		for (int i = 0; i < _fields.length; i++)
-			fields += "+\"" + _fields[i] + ", \" \n";
+		String f = clazz.getFields();
+		f = f.replace(" ", "");
+		String[] _fields = f.split(",");
+		
+		String fecha = "";
+		for (int i = 0; i < _fields.length; i++) {
+			fields += fecha + "+\"" + _fields[i];
+			fecha = ", \" \n ";
+		}
+		fields += "\" \n ";
 		
 		clazz.getFields();
 		
@@ -76,35 +83,53 @@ public class CSharpDaoFW implements IFileWriter{
 	
 	
 	private String getParamns(){
-		String paramns = "";
+		String paramns = "\n";
+		
+		String f = clazz.getFields();
+		f = f.replace(" ", "");
+		String[] _fields = f.split(",");
+
+		String fecha = "";
+		for (int i = 0; i < _fields.length; i++) {
+			paramns += fecha + "+\"@" + _fields[i];
+			fecha = ", \" \n ";
+		}
+		paramns += "\" \n ";
+		
+		clazz.getFields();
+		
 		
 		return paramns;
 	}
 	
 	private void defineConstants() throws IOException {
-		// final INSERT
+		// INSERT
 		String s = "    private string SQL_INSERT = \"INSERT INTO " + clazz.getTableName();
 		
-		s += " ( \" \n " + getFields() + " \" ) VALUES ( " + getParamns() + " );\";";
+		s += " ( \" " + getFields() + " +\" ) VALUES ( \"" + getParamns() + "+\" );\";";
 		w.write(s);
-		w.write("\n");
+		w.write("\n\n");
 
-		// final UPDATE
+		//  UPDATE
 		String[] _fields = clazz.getFields().split(",");
-		for (int i = 0; i < _fields.length; i++)
-			_fields[i] = _fields[i] + " = ?";
+		for (int i = 0; i < _fields.length; i++) {
+			_fields[i] = _fields[i].replace(" ", ""); 
+			_fields[i] = _fields[i] + " = @" + _fields[i];
+		}
 		
 		String fields = "";
-		String comma = "";
+		String fecha = "";
 		for (String f : _fields){
-			fields += comma + f;
-			comma = ",";
+			fields += fecha;
+			fields += "+\"" + f ;
+			fecha = ", \" \n ";
 		}
+		fields += "\" \n ";
 			
 			
-		s = "    private final String SQL_UPDATE = \"UPDATE "
-				+ clazz.getTableName();
-		s += " SET " + fields + " WHERE ( CONDITION )  ;\";";
+		s = "    private final String SQL_UPDATE = \"UPDATE " + clazz.getTableName() + " SET \" \n";
+		s += fields;
+		s += " +\" WHERE ( CONDITION )  ;\";";
 		w.write(s);
 		w.write("\n");
 		
