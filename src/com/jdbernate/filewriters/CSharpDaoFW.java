@@ -38,15 +38,17 @@ public class CSharpDaoFW implements IFileWriter{
 
 		w.write("\n");
 
-		w.write("}");
+		w.write("}"); // fim da classe
+		
+		w.write("}"); // fim do namespace
 
 		w.close();
 	}
 
 	private void definePackage() throws IOException {
 		// write package
-		w.write("package " + DataBaseConnector.getInstance().getPACKAGE() + ".dao;");
-		w.write("\n");
+		w.write("namespace " + DataBaseConnector.getInstance().getPACKAGE() + ".dao");
+		w.write("\n{\n");
 		w.write("\n");
 	}
 
