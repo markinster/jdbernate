@@ -83,7 +83,7 @@ public class CSharpDaoFW implements IFileWriter{
 		fields += "\" \n ";
 			
 			
-		s = "    private final String SQL_UPDATE = \"UPDATE " + clazz.getTableName() + " SET \" \n";
+		s = "    private string SQL_UPDATE = \"UPDATE " + clazz.getTableName() + " SET \" \n";
 		s += fields;
 		s += " +\" WHERE ( CONDITION )  ;\";";
 		w.write(s);
