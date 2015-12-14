@@ -21,14 +21,18 @@ public class CSharpDaoFW implements IFileWriter{
 		this.clazz = clazz;
 		path = DataBaseConnector.getInstance().getFolder() + "//dao";
 		file = new File(path);
+		//criando diretorios
 		file.mkdir();
+		
+		//monta o nome da class
 		className = clazz.getName() + "DAO";
 
+		//cria o arquivo da classe
 		file = new File(path + "//" + className + ".java");
 		w = new BufferedWriter(new FileWriter(file));
 
-		definePackage();
-		defineImports();
+		writeUsings();
+		writeNamespace();
 
 		// head of class
 		w.write("public class " + className + " {");
@@ -45,17 +49,17 @@ public class CSharpDaoFW implements IFileWriter{
 		w.close();
 	}
 
-	private void definePackage() throws IOException {
+	private void writeNamespace() throws IOException {
 		// write package
 		w.write("namespace " + DataBaseConnector.getInstance().getPACKAGE() + ".dao");
 		w.write("\n{\n");
 		w.write("\n");
 	}
 
-	private void defineImports() throws IOException {
+	private void writeUsings() throws IOException {
 		// import
-		w.write("import " + DataBaseConnector.getInstance().getPACKAGE() + ".*;");
-		w.write("\n");
+		//w.write("using " + DataBaseConnector.getInstance().getPACKAGE() + ".*;");
+		//w.write("\n");
 		w.write("\n");
 	}
 
@@ -71,7 +75,7 @@ public class CSharpDaoFW implements IFileWriter{
 		//  UPDATE
 		String[] _fields = clazz.getFields().split(",");
 		for (int i = 0; i < _fields.length; i++) {
-			_fields[i] = _fields[i].replace(" ", ""); 
+			_fields[i] = _fields[i].replace(" ", ""); //eliminando espacos
 			_fields[i] = _fields[i] + " = @" + _fields[i];
 		}
 		
