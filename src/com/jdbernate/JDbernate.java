@@ -7,8 +7,8 @@ import java.util.List;
 
 import com.jdbernate.connection.DataBaseConnector;
 import com.jdbernate.dbproviders.DBProviderBuilder;
-import com.jdbernate.filewriters.ClassFileWriter;
-import com.jdbernate.filewriters.DaoFileWriter;
+import com.jdbernate.filewriters.JavaClassFW;
+import com.jdbernate.filewriters.JavaDaoFW;
 import com.jdbernate.services.ClassMaker;
 import com.jdbernate.typemakers.IJavaTypeMaker;
 import com.jdbernate.typemakers.JavaTypeMakerMySQL;
@@ -45,9 +45,9 @@ public class JDbernate {
 		ClassMaker classMaker = new ClassMaker();
 		System.out.println("\n[INFO] Processing \n");
 		for (String table : tables) {
-			new ClassFileWriter().write(classMaker.builder(table));
+			new JavaClassFW().write(classMaker.builder(table));
 			System.out.print(".");
-			new DaoFileWriter().write(classMaker.builder(table));
+			new JavaDaoFW().write(classMaker.builder(table));
 		}
 		System.out.print(" \\o/");
 		System.out.println("\n\n[INFO] Process finished ");

@@ -10,7 +10,7 @@ import com.jdbernate.connection.DataBaseConnector;
 import com.jdbernate.objects.AttributeScheme;
 import com.jdbernate.objects.ClassScheme;
 
-public class CSharpClassWriter implements IFileWriter { 
+public class CSharpClassFW implements IFileWriter { 
 	
 	private File file;
 	private BufferedWriter w;
