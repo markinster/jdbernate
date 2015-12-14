@@ -60,12 +60,32 @@ public class CSharpDaoFW implements IFileWriter{
 		w.write("\n");
 	}
 
+	
+	private String getFields() {
+		String fields = "\n";
+		
+		String[] _fields = clazz.getFields().split(",");
+		for (int i = 0; i < _fields.length; i++)
+			fields += "+\"" + _fields[i] + ", \" \n";
+		
+		clazz.getFields();
+		
+		
+		return fields;
+	}
+	
+	
+	private String getParamns(){
+		String paramns = "";
+		
+		return paramns;
+	}
+	
 	private void defineConstants() throws IOException {
 		// final INSERT
-		String s = "    private final String SQL_INSERT = \"INSERT INTO "
-				+ clazz.getTableName();
-		s += " (" + clazz.getFields() + " ) VALUES ( " + clazz.getParamns()
-				+ " );\";";
+		String s = "    private string SQL_INSERT = \"INSERT INTO " + clazz.getTableName();
+		
+		s += " ( \" \n " + getFields() + " \" ) VALUES ( " + getParamns() + " );\";";
 		w.write(s);
 		w.write("\n");
 
@@ -88,14 +108,6 @@ public class CSharpDaoFW implements IFileWriter{
 		w.write(s);
 		w.write("\n");
 		
-		
-		// final DELETE
-		s = "    private final String SQL_DELETE = \"DELETE FROM "
-				+ clazz.getTableName();
-		s += " WHERE ( CONDITION ) ;\";";
-
-		w.write(s);
-		w.write("\n");
 	}
 
 	private void defineAttributes() throws IOException {

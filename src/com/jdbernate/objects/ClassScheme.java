@@ -50,6 +50,7 @@ public class ClassScheme {
 		}
 		return fields;
 	}
+
 	
 	public String getParamns() {
 		if (paramns.isEmpty())
