@@ -14,6 +14,8 @@ public class CSharpDaoFW implements IFileWriter{
 	private String path;
 	private String className;
 	private ClassScheme clazz;
+	
+	private String TAB = "    ";
 
 	@Override
 	public void write(ClassScheme clazz) throws IOException {
@@ -21,6 +23,7 @@ public class CSharpDaoFW implements IFileWriter{
 		this.clazz = clazz;
 		path = DataBaseConnector.getInstance().getFolder() + "//dao";
 		file = new File(path);
+		
 		//criando diretorios
 		file.mkdir();
 		
@@ -35,24 +38,24 @@ public class CSharpDaoFW implements IFileWriter{
 		writeNamespace();
 
 		// head of class
-		w.write("public class " + className + " {");
+		w.write(TAB + "public class " + className + "\n"+ TAB +"{");
 		w.write("\n");
 
 		defineConstants();
 
 		w.write("\n");
 
-		w.write("}"); // fim da classe
+		w.write(TAB+"}"); // fim da classe
 		
-		w.write("}"); // fim do namespace
+		w.write("\n}"); // fim do namespace
 
 		w.close();
 	}
 
 	private void writeNamespace() throws IOException {
 		// write package
-		w.write("namespace " + DataBaseConnector.getInstance().getPACKAGE() + ".dao");
-		w.write("\n{\n");
+		w.write("namespace " + DataBaseConnector.getInstance().getPACKAGE() + ".daos");
+		w.write("\n{");
 		w.write("\n");
 	}
 
@@ -60,15 +63,14 @@ public class CSharpDaoFW implements IFileWriter{
 		// import
 		//w.write("using " + DataBaseConnector.getInstance().getPACKAGE() + ".*;");
 		//w.write("\n");
-		w.write("\n");
+		//w.write("\n");
 	}
 
 	
 	private void defineConstants() throws IOException {
 		// INSERT
-		String s = "    private string SQL_INSERT = \"INSERT INTO " + clazz.getTableName();
-		
-		s += " ( \" " + getFields() + " +\" ) VALUES ( \"" + getParamns() + "+\" );\";";
+		String s = TAB+TAB+"private string SQL_INSERT = \"INSERT INTO " + clazz.getTableName();		
+		s += " ( \" " + getFields()  + TAB+TAB+ " +\" ) VALUES ( \"" + getParamns()  + TAB+TAB+ "+\" );\";";
 		w.write(s);
 		w.write("\n\n");
 
@@ -82,16 +84,15 @@ public class CSharpDaoFW implements IFileWriter{
 		String fields = "";
 		String fecha = "";
 		for (String f : _fields){
-			fields += fecha;
-			fields += "+\"" + f ;
+			fields += fecha + TAB+TAB+TAB+ "+\"" + f ;
 			fecha = ", \" \n ";
 		}
 		fields += "\" \n ";
 			
 			
-		s = "    private string SQL_UPDATE = \"UPDATE " + clazz.getTableName() + " SET \" \n";
+		s = TAB+TAB+"private string SQL_UPDATE = \"UPDATE " + clazz.getTableName() + " SET \" \n";
 		s += fields;
-		s += " +\" WHERE ( CONDITION )  ;\";";
+		s +=  TAB+TAB+" +\" WHERE ( CONDITION )  ;\";";
 		w.write(s);
 		w.write("\n");
 		
@@ -107,7 +108,7 @@ public class CSharpDaoFW implements IFileWriter{
 		
 		String fecha = "";
 		for (int i = 0; i < _fields.length; i++) {
-			fields += fecha + "+\"" + _fields[i];
+			fields += fecha + TAB+TAB+TAB+ "+\"" + _fields[i];
 			fecha = ", \" \n ";
 		}
 		fields += "\" \n ";
@@ -128,7 +129,7 @@ public class CSharpDaoFW implements IFileWriter{
 
 		String fecha = "";
 		for (int i = 0; i < _fields.length; i++) {
-			paramns += fecha + "+\"@" + _fields[i];
+			paramns += fecha  + TAB+TAB+TAB+ "+\"@" + _fields[i];
 			fecha = ", \" \n ";
 		}
 		paramns += "\" \n ";
