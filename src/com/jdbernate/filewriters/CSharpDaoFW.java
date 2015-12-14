@@ -36,9 +36,6 @@ public class CSharpDaoFW implements IFileWriter{
 
 		defineConstants();
 
-		defineAttributes();
-		w.write("\n");
-		defineMehods();
 		w.write("\n");
 
 		w.write("}");
@@ -60,6 +57,40 @@ public class CSharpDaoFW implements IFileWriter{
 		w.write("\n");
 	}
 
+	
+	private void defineConstants() throws IOException {
+		// INSERT
+		String s = "    private string SQL_INSERT = \"INSERT INTO " + clazz.getTableName();
+		
+		s += " ( \" " + getFields() + " +\" ) VALUES ( \"" + getParamns() + "+\" );\";";
+		w.write(s);
+		w.write("\n\n");
+
+		//  UPDATE
+		String[] _fields = clazz.getFields().split(",");
+		for (int i = 0; i < _fields.length; i++) {
+			_fields[i] = _fields[i].replace(" ", ""); 
+			_fields[i] = _fields[i] + " = @" + _fields[i];
+		}
+		
+		String fields = "";
+		String fecha = "";
+		for (String f : _fields){
+			fields += fecha;
+			fields += "+\"" + f ;
+			fecha = ", \" \n ";
+		}
+		fields += "\" \n ";
+			
+			
+		s = "    private final String SQL_UPDATE = \"UPDATE " + clazz.getTableName() + " SET \" \n";
+		s += fields;
+		s += " +\" WHERE ( CONDITION )  ;\";";
+		w.write(s);
+		w.write("\n");
+		
+	}
+	
 	
 	private String getFields() {
 		String fields = "\n";
@@ -100,97 +131,6 @@ public class CSharpDaoFW implements IFileWriter{
 		
 		
 		return paramns;
-	}
-	
-	private void defineConstants() throws IOException {
-		// INSERT
-		String s = "    private string SQL_INSERT = \"INSERT INTO " + clazz.getTableName();
-		
-		s += " ( \" " + getFields() + " +\" ) VALUES ( \"" + getParamns() + "+\" );\";";
-		w.write(s);
-		w.write("\n\n");
-
-		//  UPDATE
-		String[] _fields = clazz.getFields().split(",");
-		for (int i = 0; i < _fields.length; i++) {
-			_fields[i] = _fields[i].replace(" ", ""); 
-			_fields[i] = _fields[i] + " = @" + _fields[i];
-		}
-		
-		String fields = "";
-		String fecha = "";
-		for (String f : _fields){
-			fields += fecha;
-			fields += "+\"" + f ;
-			fecha = ", \" \n ";
-		}
-		fields += "\" \n ";
-			
-			
-		s = "    private final String SQL_UPDATE = \"UPDATE " + clazz.getTableName() + " SET \" \n";
-		s += fields;
-		s += " +\" WHERE ( CONDITION )  ;\";";
-		w.write(s);
-		w.write("\n");
-		
-	}
-
-	private void defineAttributes() throws IOException {
-		String s;
-		//
-		w.write("\n");
-		s = "    private " + clazz.getName() + " itemSelected;";
-		w.write(s);
-		w.write("\n");
-	}
-
-	private void defineMehods() throws IOException {
-		String s;
-		// METHODS
-		s = "    public void insert() { ";
-		w.write(s);
-		w.write("\n");
-
-		w.write("    }");
-		w.write("\n");
-		w.write("\n");
-
-		s = "    public void update() { ";
-		w.write(s);
-		w.write("\n");
-
-		w.write("    }");
-		w.write("\n");
-		w.write("\n");
-
-		s = "    public void delete() { ";
-		w.write(s);
-		w.write("\n");
-
-		w.write("    }");
-		w.write("\n");
-		w.write("\n");
-		
-		s = "    public " + clazz.getName() + " getItemSelected() { ";
-		w.write(s);
-		w.write("\n");
-		s = "        return itemSelected;";
-		w.write(s);
-		w.write("\n");
-		
-		w.write("    }");
-		w.write("\n");
-		w.write("\n");
-		
-		s = "    public void setItemSelected("+ clazz.getName() + " newValue) { ";
-		w.write(s);
-		w.write("\n");
-		s = "        this.itemSelected = newValue;";
-		w.write(s);
-		w.write("\n");
-		
-		w.write("    }");
-		w.write("\n");
 	}
 
 }
