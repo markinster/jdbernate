@@ -8,7 +8,7 @@ import java.io.IOException;
 import com.jdbernate.connection.DataBaseConnector;
 import com.jdbernate.objects.ClassScheme;
 
-public class DaoFileWriter implements IFileWriter{
+public class CSharpDaoFW implements IFileWriter{
 	private File file;
 	private BufferedWriter w;
 	private String path;
