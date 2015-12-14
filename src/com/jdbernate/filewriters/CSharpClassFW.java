@@ -23,9 +23,8 @@ public class CSharpClassFW implements IFileWriter {
 	    
 	    w.write("package " + DataBaseConnector.getInstance().getPACKAGE() + ";");
 	    w.write("\n");
-	    w.write("\n");
-	    
-	    w.write("import com.jdbernate.annotations.*;\n");
+	    w.write("\n");   
+
 	    
 	    //verify a need to imports
 	    for (AttributeScheme at : clazz.getAttributes()){
@@ -40,10 +39,12 @@ public class CSharpClassFW implements IFileWriter {
 	    w.write("\n");
 	    
 	    w.write("public class " + clazz.getName() + " { ");
-	    w.write("\n");
+	    w.write("\n\n");
 	    for (AttributeScheme at : clazz.getAttributes()){
-	    	w.write("    public " + at.getType() + " " + at.getName() + " { get; set; }");
-	    	w.write("\n\n");
+	    	String typp = at.getType();
+	    	typp = typp.equals("String") ? "string" : typp;
+	    	w.write("    public " + typp + " " + at.getName() + " { get; set; }");
+	    	w.write("\n");
 	    }
 	    
 	    w.write("\n");
