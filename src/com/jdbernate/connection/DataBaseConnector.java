@@ -16,6 +16,7 @@ public class DataBaseConnector {
 	private String dataBaseName;
 	private String user;
 	private String password;
+	private String language;
 	
 	private String folder = "src//com//jdbernate//entities";
 	private String PACKAGE = "com.jdbernate.entities";	
@@ -44,6 +45,7 @@ public class DataBaseConnector {
 		instance.port = properties.getProperty("database.port").trim();
 		instance.user = properties.getProperty("database.user").trim();
 		instance.password = properties.getProperty("database.password").trim();
+		instance.language = properties.getProperty("database.language").trim();
 		
 		String pak = properties.getProperty("database.package").trim();
 		if (pak != null && !pak.trim().isEmpty()) {
@@ -98,6 +100,11 @@ public class DataBaseConnector {
 	public DataBaseConnector setPassword(String password) {
 		this.password = password;
 		return this;
+	}
+	
+	
+	public boolean isCSharp() {
+		return language != null && language.toLowerCase().equals("c#");
 	}
 	
 	public String getFolder() {

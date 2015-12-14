@@ -7,6 +7,9 @@ import java.util.List;
 
 import com.jdbernate.connection.DataBaseConnector;
 import com.jdbernate.dbproviders.DBProviderBuilder;
+import com.jdbernate.filewriters.CSharpClassFW;
+import com.jdbernate.filewriters.CSharpDaoFW;
+import com.jdbernate.filewriters.IFileWriter;
 import com.jdbernate.filewriters.JavaClassFW;
 import com.jdbernate.filewriters.JavaDaoFW;
 import com.jdbernate.services.ClassMaker;
@@ -42,13 +45,25 @@ public class JDbernate {
 		
 		tables = DBProviderBuilder.getDBProvider().getTables();
 
+		//instanciando o tipo de linguagem
+		IFileWriter classFW = new JavaClassFW();
+		IFileWriter daoFW = new JavaDaoFW();	
+		
+		if (DataBaseConnector.getInstance().isCSharp()) {
+			classFW = new CSharpClassFW();
+			daoFW = new CSharpDaoFW();	
+		}		
+		
 		ClassMaker classMaker = new ClassMaker();
 		System.out.println("\n[INFO] Processing \n");
 		for (String table : tables) {
-			new JavaClassFW().write(classMaker.builder(table));
+			classFW.write(classMaker.builder(table));
+			
 			System.out.print(".");
-			new JavaDaoFW().write(classMaker.builder(table));
+			
+			daoFW.write(classMaker.builder(table));
 		}
+		
 		System.out.print(" \\o/");
 		System.out.println("\n\n[INFO] Process finished ");
 	}

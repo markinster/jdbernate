@@ -42,58 +42,16 @@ public class CSharpClassFW implements IFileWriter {
 	    w.write("public class " + clazz.getName() + " { ");
 	    w.write("\n");
 	    for (AttributeScheme at : clazz.getAttributes()){
-	    	w.write(String.format("    @Column(name = \"%s\")\n", at.getTableOriginalName()));
-	    	w.write("    private " + at.getType() + " " + at.getName() + ";");
+	    	w.write("    public " + at.getType() + " " + at.getName() + " { get; set; }");
 	    	w.write("\n\n");
 	    }
 	    
 	    w.write("\n");
-	    for (AttributeScheme at : clazz.getAttributes()){
-	    	w.write("    // " + at.getName() + ": Set and Get \n");
-	    	writeGetMethod(at);
-	    	writeSetMethod(at);
-	    }
 	    w.write(" } ");
 	    
 	    w.close();
 	}
 	
-	//create the method GET for attribute
-	private void writeGetMethod(AttributeScheme at) throws IOException{
-		String string = "    public " + at.getType() + " get"
-		+ at.getName().substring(0,1).toUpperCase() + at.getName().substring(1)
-		+ "() {";
-		
-		w.write(string);
-		w.write("\n");
-		
-		string = "        return " + at.getName() + ";";
-		
-		w.write(string);
-		w.write("\n");
-		
-		w.write("    }");
-		w.write("\n");
-		w.write("\n");		
-	}
-	
-	//create the method SET for attribute
-	private void writeSetMethod(AttributeScheme at) throws IOException{
-		String string = "    public void set"
-		+ at.getName().substring(0,1).toUpperCase() + at.getName().substring(1)
-		+ "("+ at.getType() +" newValue ) {";
-		
-		w.write(string);
-		w.write("\n");		
-		
-		string = "        this." + at.getName() + " = newValue;";
-		
-		w.write(string);
-		w.write("\n");
-		
-		w.write("    }");
-		w.write("\n");
-		w.write("\n");		
-	}
+
 
 }
