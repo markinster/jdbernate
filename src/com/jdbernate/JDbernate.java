@@ -13,13 +13,14 @@ import com.jdbernate.filewriters.IFileWriter;
 import com.jdbernate.filewriters.JavaClassFW;
 import com.jdbernate.filewriters.JavaDaoFW;
 import com.jdbernate.services.ClassMaker;
-import com.jdbernate.typemakers.IJavaTypeMaker;
+import com.jdbernate.typemakers.ITypeMaker;
 import com.jdbernate.typemakers.JavaTypeMakerMySQL;
+import com.jdbernate.typemakers.TypeMakerHelper;
 
 public class JDbernate {
 	
 	// this TypeMaker is instanced in constructor of class
-	public static IJavaTypeMaker javaTypeMaker;
+	public static ITypeMaker javaTypeMaker;
 
 	// list of tables from data base
 	private List<String> tables = new ArrayList<String>();
@@ -37,12 +38,9 @@ public class JDbernate {
 	 */
 	public void execute() throws SQLException, IOException {
 		
-		if (javaTypeMaker == null){
-			if (DataBaseConnector.getInstance().getSgbd().equals(DataBaseConnector.SGBD_MYSQL)) {
-				javaTypeMaker = new JavaTypeMakerMySQL();
-			}
-		}
-		
+		if (javaTypeMaker == null)
+			javaTypeMaker = TypeMakerHelper.getTypeMaker();
+				
 		tables = DBProviderBuilder.getDBProvider().getTables();
 
 		IFileWriter classFW;

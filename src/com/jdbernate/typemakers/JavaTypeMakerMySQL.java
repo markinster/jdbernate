@@ -3,7 +3,7 @@ package com.jdbernate.typemakers;
 
 import java.util.Map;
 
-public class JavaTypeMakerMySQL implements IJavaTypeMaker {
+public class JavaTypeMakerMySQL implements ITypeMaker {
 
 	private Map<String, String> types;
 
