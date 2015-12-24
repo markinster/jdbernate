@@ -13,6 +13,7 @@ public class Main {
 			// connect to data base
 			DataBaseConnector.getInstance().load();	
 			
+			//create a folder 
 			File f = new File(DataBaseConnector.getInstance().getFolder());
 			f.mkdirs();
 			

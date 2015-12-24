@@ -45,22 +45,29 @@ public class JDbernate {
 		
 		tables = DBProviderBuilder.getDBProvider().getTables();
 
-		//instanciando o tipo de linguagem
-		IFileWriter classFW = new JavaClassFW();
-		IFileWriter daoFW = new JavaDaoFW();	
+		IFileWriter classFW;
+		IFileWriter daoFW;	
 		
+		//idefine program language
 		if (DataBaseConnector.getInstance().isCSharp()) {
 			classFW = new CSharpClassFW();
 			daoFW = new CSharpDaoFW();	
-		}		
+		} else {
+			classFW = new JavaClassFW();
+			daoFW = new JavaDaoFW();
+		}
 		
 		ClassMaker classMaker = new ClassMaker();
+		
 		System.out.println("\n[INFO] Processing \n");
+		
 		for (String table : tables) {
-			classFW.write(classMaker.builder(table));
+			//create entity
+			classFW.write(classMaker.builder(table));		
 			
-			System.out.print(".");
+			System.out.print(".");	
 			
+			//create DAO
 			daoFW.write(classMaker.builder(table));
 		}
 		
