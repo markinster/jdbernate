@@ -4,7 +4,7 @@ package com.jdbernate.typemakers;
 import java.util.HashMap;
 import java.util.Map;
 
-public class JavaTypeMakerMySQL implements ITypeMaker {
+public class CSharpTypeMakerMySQL implements ITypeMaker {
 
 	private Map<String, String> types;
 
@@ -47,28 +47,28 @@ public class JavaTypeMakerMySQL implements ITypeMaker {
 
 	private void createMapTypes() {
 		types = new HashMap<String, String>();
-		types.put(CHARACTER, "string");
-		types.put(VARCHAR, "string");
-		types.put(CHAR, "string");
-		types.put(BIGTEXT, "string");
-		types.put(MEDIUMTEXT, "string");
-		types.put(SMALLTEXT, "string");
-		types.put(TINYTEXT, "string");
-		types.put(INT, "int");
-		types.put(INTEGER, "int");
-		types.put(SERIAL, "int");
-		types.put(BIGINT, "int");
-		types.put(MEDIUMINT, "int");
-		types.put(SMALLINT, "int");
-		types.put(TINYINT, "int");
-		types.put(DECIMAL, "double");
-		types.put(DOUBLE, "double");
-		types.put(FLOAT, "double");
-		types.put(REAL, "double");
-		types.put(NUMERIC, "double");
-		types.put(YEAR, "int32");
-		types.put(TIME, "string");
-		types.put(DATE, "string");
+		types.put(CHARACTER, "String");
+		types.put(VARCHAR, "String");
+		types.put(CHAR, "String");
+		types.put(BIGTEXT, "String");
+		types.put(MEDIUMTEXT, "String");
+		types.put(SMALLTEXT, "String");
+		types.put(TINYTEXT, "String");
+		types.put(INT, "Integer");
+		types.put(INTEGER, "Integer");
+		types.put(SERIAL, "Integer");
+		types.put(BIGINT, "Integer");
+		types.put(MEDIUMINT, "Integer");
+		types.put(SMALLINT, "Integer");
+		types.put(TINYINT, "Integer");
+		types.put(DECIMAL, "BigDecimal");
+		types.put(DOUBLE, "BigDecimal");
+		types.put(FLOAT, "BigDecimal");
+		types.put(REAL, "BigDecimal");
+		types.put(NUMERIC, "BigDecimal");
+		types.put(YEAR, "Short");
+		types.put(TIME, "Calendar");
+		types.put(DATE, "Calendar");
 	}
 
 	private String returnType(String type) {

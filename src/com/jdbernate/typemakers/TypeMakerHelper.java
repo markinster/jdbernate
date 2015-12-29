@@ -6,7 +6,11 @@ public class TypeMakerHelper {
 
 	public static ITypeMaker getTypeMaker() {
 		if (DataBaseConnector.getInstance().getSgbd().equals(DataBaseConnector.SGBD_MYSQL)) {
-			return new JavaTypeMakerMySQL();
+			
+			if(DataBaseConnector.getInstance().isCSharp())
+				return new CSharpTypeMakerMySQL();
+			else	
+				return new JavaTypeMakerMySQL();
 		}
 		
 		return null;

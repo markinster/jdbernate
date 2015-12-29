@@ -20,7 +20,7 @@ import com.jdbernate.typemakers.TypeMakerHelper;
 public class JDbernate {
 	
 	// this TypeMaker is instanced in constructor of class
-	public static ITypeMaker javaTypeMaker;
+	public static ITypeMaker typeMaker;
 
 	// list of tables from data base
 	private List<String> tables = new ArrayList<String>();
@@ -28,7 +28,7 @@ public class JDbernate {
 	// constructor
 	public JDbernate() throws IOException {
 		if (DataBaseConnector.getInstance().getSgbd().equals(DataBaseConnector.SGBD_MYSQL)) {
-			javaTypeMaker = new JavaTypeMakerMySQL();
+			typeMaker = new JavaTypeMakerMySQL();
 		}
 	}	
 
@@ -38,8 +38,8 @@ public class JDbernate {
 	 */
 	public void execute() throws SQLException, IOException {
 		
-		if (javaTypeMaker == null)
-			javaTypeMaker = TypeMakerHelper.getTypeMaker();
+		if (typeMaker == null)
+			typeMaker = TypeMakerHelper.getTypeMaker();
 				
 		tables = DBProviderBuilder.getDBProvider().getTables();
 

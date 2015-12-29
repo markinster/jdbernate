@@ -15,44 +15,56 @@ public class CSharpClassFW implements IFileWriter {
 	private File file;
 	private BufferedWriter w;
 	
+	//usado para fazer espaçamentos
+	private String TAB = "    ";
+	
 	@Override
 	public void write(ClassScheme clazz) throws IOException{
 		
+		//cria o arquivo da classe
 		file = new File(DataBaseConnector.getInstance().getFolder() +"//" + clazz.getName() + ".java");
 	    w = new BufferedWriter(new FileWriter (file));
 	    
-	    w.write("package " + DataBaseConnector.getInstance().getPACKAGE() + ";");
-	    w.write("\n");
-	    w.write("\n");   
-
+	    //grava os Usings
+	    writeUsings();
 	    
-	    //verify a need to imports
-	    for (AttributeScheme at : clazz.getAttributes()){
-	    	if ("bigdecimal".equals(at.getType().toLowerCase())){
-	    		w.write("import java.math.BigDecimal;");
-	    		w.write("\n");
-	    	} else if  ("calendar".equals(at.getType().toLowerCase())){
-	    		w.write("import java.util.Calendar;");
-	    		w.write("\n");
-	    	}
-	    }
+	    //grava o namespace
+	    writeNamespace();
+	    
 	    w.write("\n");
 	    
-	    w.write("public class " + clazz.getName() + " { ");
+	    //public class NomeDaClasse
+	    w.write(TAB+"public class " + clazz.getName() + " { ");
 	    w.write("\n\n");
+	    
+	    //grava todos os atributos da classe
 	    for (AttributeScheme at : clazz.getAttributes()){
-	    	String typp = at.getType();
-	    	typp = typp.equals("String") ? "string" : typp;
-	    	w.write("    public " + typp + " " + at.getName() + " { get; set; }");
+	    	//public tipo atributo { get; set; }
+	    	w.write(TAB+TAB+"public " + at.getType() + " " + at.getName() + " { get; set; }");
 	    	w.write("\n");
 	    }
 	    
 	    w.write("\n");
+	    w.write(TAB+"} ");
 	    w.write(" } ");
 	    
 	    w.close();
 	}
 	
+	private void writeNamespace() throws IOException {
+		// write package
+		w.write("namespace " + DataBaseConnector.getInstance().getPACKAGE());
+		w.write("\n{");
+		w.write("\n");
+	}
+	
+	
+	private void writeUsings() throws IOException {
+		// import
+		//w.write("using " + DataBaseConnector.getInstance().getPACKAGE() + ".*;");
+		//w.write("\n");
+		//w.write("\n");
+	}
 
 
 }
