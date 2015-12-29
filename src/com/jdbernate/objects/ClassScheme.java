@@ -3,8 +3,6 @@ package com.jdbernate.objects;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.text.TabExpander;
-
 public class ClassScheme {
 
 	private String name;
