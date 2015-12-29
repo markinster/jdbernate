@@ -49,8 +49,33 @@ public class CSharpClassFW implements IFileWriter {
 	    bw.write(TAB+TAB+"{\n");
 	    
 	    for (AttributeScheme at : clazz.getAttributes()){
-	    	//public tipo atributo { get; set; }
-	    	bw.write(TAB+TAB+TAB+ at.getName() + " = reader[\"" + at.getTableOriginalName() + "\"].ToString();");
+	    	
+	    	String string = TAB+TAB+TAB+ at.getName() + " = ";
+	    	
+	    	String type = at.getType().toLowerCase();
+	    	if (!type.equals("string")) {
+	    		string += "EdConvert.";
+	    		
+	    		if (type.equals("double"))
+	    			string += "ToDouble";
+	    		else if (type.equals("int"))
+	    			string += "ToInt32";
+	    		else
+	    			string += "ToDouble";
+	    		
+	    		string += "(";	    		
+	    	}
+	    	
+	    	string += "reader[\"" + at.getTableOriginalName() + "\"].ToString()";
+	    	
+	    	if (!type.equals("string")) {
+	    		string += ")";
+	    	}
+	    	
+	    	string += ";";
+	    	
+	    	bw.write(string);
+	    	
 	    	bw.write("\n");
 	    }
 	    bw.write(TAB+TAB+"}\n");
