@@ -63,14 +63,14 @@ public class CSharpDaoFW implements IFileWriter{
 		//Inserir
 		w.write(TAB + TAB + "public string Inserir(" +clazz.getName()+ " entity)\n" );
 		w.write(TAB+TAB+"{\n");
-		w.write(TAB+TAB+TAB+"return Salvar(entiry, SQL_INSERT);\n");
+		w.write(TAB+TAB+TAB+"return Salvar(entity, SQL_INSERT);\n");
 		w.write(TAB+TAB+"}\n");
 		w.write("\n");
 		
 		//Alterar
 		w.write(TAB + TAB + "public string Alterar(" +clazz.getName()+ " entity)\n" );
 		w.write(TAB+TAB+"{\n");
-		w.write(TAB+TAB+TAB+"return Salvar(entiry, SQL_UPDATE);\n");
+		w.write(TAB+TAB+TAB+"return Salvar(entity, SQL_UPDATE);\n");
 		w.write(TAB+TAB+"}\n");
 		w.write("\n");
 		
@@ -82,7 +82,7 @@ public class CSharpDaoFW implements IFileWriter{
 		w.write(TAB+TAB+TAB+"{\n");
 		
 		w.write(TAB+TAB+TAB+TAB+"MySqlCommand command = new MySqlCommand(sql, conn);\n");
-		w.write(TAB+TAB+TAB+TAB+"command = SetaAtributos(tabela, command);\n");
+		w.write(TAB+TAB+TAB+TAB+"command = SetaAtributos(entity, command);\n");
 		w.write(TAB+TAB+TAB+TAB+"command.ExecuteNonQuery();\n");
 		w.write(TAB+TAB+TAB+TAB+"return null;\n");
 		
@@ -95,7 +95,7 @@ public class CSharpDaoFW implements IFileWriter{
 		w.write("\n");
 		
 		//Seta Atributos
-		w.write(TAB + TAB + "public string SetaAtributos(" +clazz.getName()+ " entity, MySqlCommand command)\n" );
+		w.write(TAB + TAB + "public MySqlCommand SetaAtributos(" +clazz.getName()+ " entity, MySqlCommand command)\n" );
 		w.write(TAB+TAB+"{\n");
 		
 		for (AttributeScheme at : clazz.getAttributes()){
