@@ -13,7 +13,7 @@ import com.jdbernate.objects.ClassScheme;
 public class CSharpClassFW implements IFileWriter { 
 	
 	private File file;
-	private BufferedWriter w;
+	private BufferedWriter bw;
 	
 	//usado para fazer espaçamentos
 	private String TAB = "    ";
@@ -23,7 +23,7 @@ public class CSharpClassFW implements IFileWriter {
 		
 		//cria o arquivo da classe
 		file = new File(DataBaseConnector.getInstance().getFolder() +"//" + clazz.getName() + ".java");
-	    w = new BufferedWriter(new FileWriter (file));
+	    bw = new BufferedWriter(new FileWriter (file));
 	    
 	    //grava os Usings
 	    writeUsings();
@@ -31,31 +31,51 @@ public class CSharpClassFW implements IFileWriter {
 	    //grava o namespace
 	    writeNamespace();
 	    
-	    w.write("\n");
+	    bw.write("\n");
 	    
 	    //public class NomeDaClasse
-	    w.write(TAB+"public class " + clazz.getName() + " { ");
-	    w.write("\n\n");
+	    bw.write(TAB+"public class " + clazz.getName() + " { ");
+	    bw.write("\n\n");
+	    
+	    
+	    //construtor padrao
+	    bw.write(TAB+TAB+"public " + clazz.getName() + "()\n");
+	    bw.write(TAB+TAB+"{\n");
+	    bw.write(TAB+TAB+"}");
+	    bw.write("\n\n");
+	    
+	    //construtor com MysqlReader
+	    bw.write(TAB+TAB+"public " + clazz.getName() + "(MySqlDataReader reader)\n");
+	    bw.write(TAB+TAB+"{\n");
+	    
+	    for (AttributeScheme at : clazz.getAttributes()){
+	    	//public tipo atributo { get; set; }
+	    	bw.write(TAB+TAB+TAB+ at.getName() + " = reader[\"" + at.getTableOriginalName() + "\"].ToString();");
+	    	bw.write("\n");
+	    }
+	    bw.write(TAB+TAB+"}\n");
+	    bw.write("\n\n");
+	    
 	    
 	    //grava todos os atributos da classe
 	    for (AttributeScheme at : clazz.getAttributes()){
 	    	//public tipo atributo { get; set; }
-	    	w.write(TAB+TAB+"public " + at.getType() + " " + at.getName() + " { get; set; }");
-	    	w.write("\n");
+	    	bw.write(TAB+TAB+"public " + at.getType() + " " + at.getName() + " { get; set; }");
+	    	bw.write("\n");
 	    }
 	    
-	    w.write("\n");
-	    w.write(TAB+"} ");
-	    w.write(" } ");
+	    bw.write("\n");
+	    bw.write(TAB+"} ");
+	    bw.write("\n} ");
 	    
-	    w.close();
+	    bw.close();
 	}
 	
 	private void writeNamespace() throws IOException {
 		// write package
-		w.write("namespace " + DataBaseConnector.getInstance().getPACKAGE());
-		w.write("\n{");
-		w.write("\n");
+		bw.write("namespace " + DataBaseConnector.getInstance().getPACKAGE());
+		bw.write("\n{");
+		bw.write("\n");
 	}
 	
 	
