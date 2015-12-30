@@ -76,7 +76,7 @@ public class CSharpDaoFW implements IFileWriter{
 		
 		
 		//Salvar
-		w.write(TAB + TAB + "public string Salvar(" +clazz.getName()+ " entity, String sql)\n" );
+		w.write(TAB + TAB + "private string Salvar(" +clazz.getName()+ " entity, String sql)\n" );
 		w.write(TAB+TAB+"{\n");
 		w.write(TAB+TAB+TAB+"try\n");
 		w.write(TAB+TAB+TAB+"{\n");
@@ -95,7 +95,7 @@ public class CSharpDaoFW implements IFileWriter{
 		w.write("\n");
 		
 		//Seta Atributos
-		w.write(TAB + TAB + "public MySqlCommand SetaAtributos(" +clazz.getName()+ " entity, MySqlCommand command)\n" );
+		w.write(TAB + TAB + "private MySqlCommand SetaAtributos(" +clazz.getName()+ " entity, MySqlCommand command)\n" );
 		w.write(TAB+TAB+"{\n");
 		
 		for (AttributeScheme at : clazz.getAttributes()){
