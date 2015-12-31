@@ -114,6 +114,10 @@ public class DataBaseConnector {
 	public String getPACKAGE() {
 		return PACKAGE;
 	}
+	
+	public String getPort() {
+		return port;
+	}
 
 	public Connection getConnection() throws SQLException {
 		if (con == null || con.isClosed()){
