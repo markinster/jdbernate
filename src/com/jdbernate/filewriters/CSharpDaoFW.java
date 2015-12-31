@@ -32,7 +32,7 @@ public class CSharpDaoFW implements IFileWriter{
 		className = clazz.getName() + "DAO";
 
 		//cria o arquivo da classe
-		file = new File(path + "//" + className + ".java");
+		file = new File(path + "//" + className + ".cs");
 		w = new BufferedWriter(new FileWriter(file));
 
 		writeUsings();

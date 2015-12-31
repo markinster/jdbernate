@@ -22,7 +22,7 @@ public class CSharpClassFW implements IFileWriter {
 	public void write(ClassScheme clazz) throws IOException{
 		
 		//cria o arquivo da classe
-		file = new File(DataBaseConnector.getInstance().getFolder() +"//" + clazz.getName() + ".java");
+		file = new File(DataBaseConnector.getInstance().getFolder() +"//" + clazz.getName() + ".cs");
 	    bw = new BufferedWriter(new FileWriter (file));
 	    
 	    //grava os Usings
