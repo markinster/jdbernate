@@ -17,6 +17,7 @@ public class Main {
 			File f = new File(DataBaseConnector.getInstance().getFolder());
 			f.mkdirs();
 			
+			//main process
 			JDbernate jDbernate = new JDbernate();
 			jDbernate.execute();
 			
