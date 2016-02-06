@@ -30,6 +30,7 @@ public class CSharpTypeMakerMySQL implements ITypeMaker {
 	private static final String NUMERIC = "numeric";
 	private static final String DATE = "date";
 	private static final String YEAR = "year";
+	private static final String TIMESTAMP = "timestamp";
 
 	@Override
 	public String getType(String typeColumn) {
@@ -69,6 +70,7 @@ public class CSharpTypeMakerMySQL implements ITypeMaker {
 		types.put(YEAR, "Short");
 		types.put(TIME, "Calendar");
 		types.put(DATE, "Calendar");
+		types.put(TIMESTAMP, "Calendar");
 	}
 
 	private String returnType(String type) {
