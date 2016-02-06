@@ -25,13 +25,13 @@ public class CSharpDaoFW implements IFileWriter{
 		path = DataBaseConnector.getInstance().getFolder() + "//dao";
 		file = new File(path);
 		
-		//criando diretorios
+		//create dirs
 		file.mkdir();
 		
-		//monta o nome da class
+		//class name
 		className = clazz.getName() + "DAO";
 
-		//cria o arquivo da classe
+		//created class file
 		file = new File(path + "//" + className + ".cs");
 		w = new BufferedWriter(new FileWriter(file));
 
@@ -49,7 +49,7 @@ public class CSharpDaoFW implements IFileWriter{
 		
 		w.write("\n");
 		
-		//CONSTRUTOR
+		//CONSTRUCTOR
 		w.write(TAB + TAB + "public " + className + "(MySqlConnection conn)\n"+ TAB + TAB +"{\n");
 		w.write(TAB+TAB+TAB+"this.conn = conn; \n");
 		w.write(TAB+TAB+"}\n");
@@ -58,31 +58,30 @@ public class CSharpDaoFW implements IFileWriter{
 		
 		
 		
-		//METODOS
+		//METHODS
 		
-		//Inserir
-		w.write(TAB + TAB + "public string Inserir(" +clazz.getName()+ " entity)\n" );
+		//Insert
+		w.write(TAB + TAB + "public string Insert(" +clazz.getName()+ " entity)\n" );
 		w.write(TAB+TAB+"{\n");
-		w.write(TAB+TAB+TAB+"return Salvar(entity, SQL_INSERT);\n");
+		w.write(TAB+TAB+TAB+"return Save(entity, SQL_INSERT);\n");
 		w.write(TAB+TAB+"}\n");
 		w.write("\n");
 		
-		//Alterar
-		w.write(TAB + TAB + "public string Alterar(" +clazz.getName()+ " entity)\n" );
+		//update
+		w.write(TAB + TAB + "public string Update(" +clazz.getName()+ " entity)\n" );
 		w.write(TAB+TAB+"{\n");
-		w.write(TAB+TAB+TAB+"return Salvar(entity, SQL_UPDATE);\n");
+		w.write(TAB+TAB+TAB+"return Save(entity, SQL_UPDATE);\n");
 		w.write(TAB+TAB+"}\n");
-		w.write("\n");
+		w.write("\n");		
 		
-		
-		//Salvar
-		w.write(TAB + TAB + "private string Salvar(" +clazz.getName()+ " entity, String sql)\n" );
+		//save
+		w.write(TAB + TAB + "private string Save(" +clazz.getName()+ " entity, String sql)\n" );
 		w.write(TAB+TAB+"{\n");
 		w.write(TAB+TAB+TAB+"try\n");
 		w.write(TAB+TAB+TAB+"{\n");
 		
 		w.write(TAB+TAB+TAB+TAB+"MySqlCommand command = new MySqlCommand(sql, conn);\n");
-		w.write(TAB+TAB+TAB+TAB+"command = SetaAtributos(entity, command);\n");
+		w.write(TAB+TAB+TAB+TAB+"command = SetParameters(entity, command);\n");
 		w.write(TAB+TAB+TAB+TAB+"command.ExecuteNonQuery();\n");
 		w.write(TAB+TAB+TAB+TAB+"return null;\n");
 		
@@ -94,8 +93,8 @@ public class CSharpDaoFW implements IFileWriter{
 		w.write(TAB+TAB+"}\n");
 		w.write("\n");
 		
-		//Seta Atributos
-		w.write(TAB + TAB + "private MySqlCommand SetaAtributos(" +clazz.getName()+ " entity, MySqlCommand command)\n" );
+		//Set parameters
+		w.write(TAB + TAB + "private MySqlCommand SetParameters(" +clazz.getName()+ " entity, MySqlCommand command)\n" );
 		w.write(TAB+TAB+"{\n");
 		
 		for (AttributeScheme at : clazz.getAttributes()){
@@ -112,9 +111,9 @@ public class CSharpDaoFW implements IFileWriter{
 		//------------------------
 		
 		
-		w.write(TAB+"}"); // fim da classe
+		w.write(TAB+"}"); // end of classs
 		
-		w.write("\n}"); // fim do namespace
+		w.write("\n}"); // end of namespace
 
 		w.close();
 	}
@@ -144,7 +143,7 @@ public class CSharpDaoFW implements IFileWriter{
 		//  UPDATE
 		String[] _fields = clazz.getFields().split(",");
 		for (int i = 0; i < _fields.length; i++) {
-			_fields[i] = _fields[i].replace(" ", ""); //eliminando espacos
+			_fields[i] = _fields[i].replace(" ", ""); //Trim
 			_fields[i] = _fields[i] + " = @" + _fields[i];
 		}
 		
