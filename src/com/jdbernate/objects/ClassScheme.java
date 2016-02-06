@@ -1,3 +1,7 @@
+/**
+ * This class, contains a necessary mapping
+ * for create a class
+ */
 package com.jdbernate.objects;
 
 import java.util.ArrayList;

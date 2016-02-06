@@ -1,3 +1,7 @@
+/**
+ * This class return a ClassScheme, for table
+ * passed by parametter <table> 
+ */
 package com.jdbernate.services;
 
 import java.sql.SQLException;
