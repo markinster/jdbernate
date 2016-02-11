@@ -13,6 +13,11 @@ import com.jdbernate.objects.AttributeScheme;
 import com.jdbernate.objects.ClassScheme;
 import com.jdbernate.objects.Column;
 
+/**
+ * 
+ * @author marcos
+ *
+ */
 public class ClassMaker {
 
 	public ClassScheme builder(String table) throws SQLException {
