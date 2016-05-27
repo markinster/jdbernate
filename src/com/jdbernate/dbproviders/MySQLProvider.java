@@ -13,7 +13,7 @@ import com.jdbernate.objects.Column;
 public class MySQLProvider implements IDBProvider {
 
 	@Override
-	public List<String> getTables()  {
+	public List<String> getTables() {
 		List<String> tables = new ArrayList<String>();
 
 		Connection con;
@@ -37,7 +37,7 @@ public class MySQLProvider implements IDBProvider {
 	}
 
 	@Override
-	public List<Column> getFields(String tableName)  {
+	public List<Column> getFields(String tableName) {
 		Connection con;
 		try {
 			con = DataBaseConnector.getInstance().getConnection();
@@ -56,14 +56,46 @@ public class MySQLProvider implements IDBProvider {
 
 				fields.add(field);
 			}
-			
+
 			return fields;
-			
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return null;
 		}
 
+	}
+
+	@Override
+	public List<String> getPrimaryKeys(String tableName) {
+
+		List<String> asReturn = new ArrayList<>();
+
+		String schema = DataBaseConnector.getInstance().getDataBaseName();
+
+		String sql = "SELECT information_schema.KEY_COLUMN_USAGE.COLUMN_NAME as COLUMN_NAME "
+				+ "FROM information_schema.KEY_COLUMN_USAGE "
+				+ "WHERE information_schema.KEY_COLUMN_USAGE.CONSTRAINT_NAME LIKE \"PRIMARY\" AND "
+				+ "information_schema.KEY_COLUMN_USAGE.TABLE_SCHEMA LIKE '" + schema + "' AND "
+				+ "information_schema.KEY_COLUMN_USAGE.TABLE_NAME LIKE '" + tableName +"'";
+
+		Connection con;
+
+		try {
+			con = DataBaseConnector.getInstance().getConnection();
+
+			PreparedStatement prepareStatement = con.prepareStatement(sql);
+			ResultSet rs = prepareStatement.executeQuery();
+
+			while (rs.next())
+				asReturn.add(rs.getString("COLUMN_NAME"));
+			
+
+		} catch (Exception e) {
+			return null;
+		}
+
+		return asReturn;
 	}
 
 }

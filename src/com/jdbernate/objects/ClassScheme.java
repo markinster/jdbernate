@@ -12,10 +12,11 @@ public class ClassScheme {
 	private String name;
 	private String tableName;
 	private List<AttributeScheme> attributes = new ArrayList<AttributeScheme>();
-	
+	private List<String> privareKeys = new ArrayList<>();
+
 	private String fields = "";
 	private String paramns = "";
-	
+
 	public String getName() {
 		return name;
 	}
@@ -39,25 +40,31 @@ public class ClassScheme {
 	public void setAttributes(List<AttributeScheme> columns) {
 		this.attributes = columns;
 	}
-	
-	
+
+	public List<String> getPrivareKeys() {
+		return privareKeys;
+	}
+
+	public void setPrivareKeys(List<String> privareKeys) {
+		this.privareKeys = privareKeys;
+	}
+
 	public String getFields() {
-		if (fields.isEmpty()){
+		if (fields.isEmpty()) {
 			String comma = "";
-			for(AttributeScheme at: attributes){
+			for (AttributeScheme at : attributes) {
 				fields += comma + at.getDbFieldName();
-				paramns+= comma + "?";
+				paramns += comma + "?";
 				comma = ", ";
 			}
 		}
 		return fields;
 	}
 
-	
 	public String getParamns() {
 		if (paramns.isEmpty())
 			getFields();
-		
+
 		return paramns;
 	}
 
@@ -66,7 +73,7 @@ public class ClassScheme {
 		String retorno = name + "\n";
 		for (AttributeScheme t : attributes)
 			retorno += t.getName() + " " + t.getType() + "\n";
-		
+
 		return retorno;
 	}
 

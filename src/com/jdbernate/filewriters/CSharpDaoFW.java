@@ -154,11 +154,17 @@ public class CSharpDaoFW implements IFileWriter{
 			fecha = ", \" \n ";
 		}
 		fields += "\" \n ";
-			
+		
+		String CONDITION = "";
+		String AND = "";
+		for (String pk : clazz.getPrivareKeys()) {
+			CONDITION += AND + pk + " = @" + pk;
+			AND = " and ";
+		}
 			
 		s = TAB+TAB+"private string SQL_UPDATE = \"UPDATE " + clazz.getTableName() + " SET \" \n";
 		s += fields;
-		s +=  TAB+TAB+" +\" WHERE ( CONDITION )  ;\";";
+		s +=  TAB+TAB+" +\" WHERE ( " + CONDITION + " )  ;\";";
 		w.write(s);
 		w.write("\n");
 		

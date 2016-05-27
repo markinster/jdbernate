@@ -8,4 +8,5 @@ public interface IDBProvider {
 
 	public List<String> getTables();
 	public List<Column> getFields(String tableName);
+	public List<String> getPrimaryKeys(String tableName);
 }
