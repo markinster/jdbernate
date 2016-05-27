@@ -33,6 +33,20 @@ public class CSharpClassFW implements IFileWriter {
 	    
 	    bw.write("\n");
 	    
+	    bw.write("using DataBaseLib.utils;");
+	    bw.write("\n");
+	    bw.write("using MySql.Data.MySqlClient;");
+	    bw.write("using System;");
+	    bw.write("\n");
+	    bw.write("using System.Collections.Generic;");
+	    bw.write("\n");
+	    bw.write("using System.Linq;");
+	    bw.write("\n");
+	    bw.write("using System.Text;");
+	    bw.write("\n");
+	    bw.write("using System.Threading.Tasks;");	
+	    bw.write("\n");
+	    
 	    //public class NomeDaClasse
 	    bw.write(TAB+"public class " + clazz.getName() + " { ");
 	    bw.write("\n\n");
