@@ -7,11 +7,13 @@ import java.util.List;
 
 import com.jdbernate.connection.DataBaseConnector;
 import com.jdbernate.dbproviders.DBProviderBuilder;
+import com.jdbernate.filewriters.CSUtilsFW;
 import com.jdbernate.filewriters.CSharpClassFW;
 import com.jdbernate.filewriters.CSharpDaoFW;
 import com.jdbernate.filewriters.IFileWriter;
 import com.jdbernate.filewriters.JavaClassFW;
 import com.jdbernate.filewriters.JavaDaoFW;
+import com.jdbernate.objects.ClassScheme;
 import com.jdbernate.services.ClassMaker;
 import com.jdbernate.typemakers.ITypeMaker;
 import com.jdbernate.typemakers.JavaTypeMakerMySQL;
@@ -43,13 +45,15 @@ public class JDbernate {
 				
 		tables = DBProviderBuilder.getDBProvider().getTables();
 
-		IFileWriter classFW;
-		IFileWriter daoFW;	
+		IFileWriter classFW = null;
+		IFileWriter daoFW = null;	
+		IFileWriter utilFW = null;
 		
 		//idefine program language
 		if (DataBaseConnector.getInstance().isCSharp()) {
 			classFW = new CSharpClassFW();
 			daoFW = new CSharpDaoFW();	
+			utilFW = new CSUtilsFW();
 		} else {
 			classFW = new JavaClassFW();
 			daoFW = new JavaDaoFW();
@@ -60,13 +64,20 @@ public class JDbernate {
 		System.out.println("\n[INFO] Processing \n");
 		
 		for (String table : tables) {
+			ClassScheme clazz = classMaker.builder(table);
+
+			//create utils
+			if (utilFW != null)
+				utilFW.write(clazz);
+
 			//create entity
-			classFW.write(classMaker.builder(table));		
+			classFW.write(clazz);		
 			
 			System.out.print(".");	
 			
 			//create DAO
-			daoFW.write(classMaker.builder(table));
+			daoFW.write(clazz);
+			
 		}
 		
 		System.out.print(" \\o/");

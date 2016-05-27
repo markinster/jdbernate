@@ -54,7 +54,7 @@ public class CSharpClassFW implements IFileWriter {
 	    	
 	    	String type = at.getType().toLowerCase();
 	    	if (!type.equals("string")) {
-	    		string += "EdConvert.";
+	    		string += "JdbConvert.";
 	    		
 	    		if (type.equals("double"))
 	    			string += "ToDouble";
