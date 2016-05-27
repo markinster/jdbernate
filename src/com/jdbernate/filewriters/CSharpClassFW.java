@@ -9,6 +9,8 @@ import java.io.IOException;
 import com.jdbernate.connection.DataBaseConnector;
 import com.jdbernate.objects.AttributeScheme;
 import com.jdbernate.objects.ClassScheme;
+import com.jdbernate.utils.StringUtils;
+
 
 public class CSharpClassFW implements IFileWriter { 
 	
@@ -22,7 +24,17 @@ public class CSharpClassFW implements IFileWriter {
 	public void write(ClassScheme clazz) throws IOException{
 		
 		//cria o arquivo da classe
-		file = new File(DataBaseConnector.getInstance().getFolder() +"//" + clazz.getName() + ".cs");
+		
+		String modelpackage = StringUtils.isEmpty(DataBaseConnector.getInstance().getModelSubdir()) ? "" :
+				"//" + DataBaseConnector.getInstance().getModelSubdir();
+		
+		String path = DataBaseConnector.getInstance().getFolder() + "//models" + modelpackage;		
+		file = new File(path);
+		
+		//create dirs
+		file.mkdirs();
+		
+		file = new File(path + "//" + clazz.getName() +   ".cs");
 	    bw = new BufferedWriter(new FileWriter (file));
 	    
 	    //grava os Usings
@@ -31,20 +43,6 @@ public class CSharpClassFW implements IFileWriter {
 	    //grava o namespace
 	    writeNamespace();
 	    
-	    bw.write("\n");
-	    
-	    bw.write("using DataBaseLib.utils;");
-	    bw.write("\n");
-	    bw.write("using MySql.Data.MySqlClient;");
-	    bw.write("using System;");
-	    bw.write("\n");
-	    bw.write("using System.Collections.Generic;");
-	    bw.write("\n");
-	    bw.write("using System.Linq;");
-	    bw.write("\n");
-	    bw.write("using System.Text;");
-	    bw.write("\n");
-	    bw.write("using System.Threading.Tasks;");	
 	    bw.write("\n");
 	    
 	    //public class NomeDaClasse
@@ -112,17 +110,37 @@ public class CSharpClassFW implements IFileWriter {
 	
 	private void writeNamespace() throws IOException {
 		// write package
-		bw.write("namespace " + DataBaseConnector.getInstance().getPACKAGE());
+		String pkt = DataBaseConnector.getInstance().getPACKAGE();
+
+		String models = pkt + ".models";
+		if (!StringUtils.isEmpty(DataBaseConnector.getInstance().getModelSubdir()))
+			models += "." + DataBaseConnector.getInstance().getModelSubdir();
+		models += ";";
+		
+		bw.write("namespace " + models);
+		
 		bw.write("\n{");
 		bw.write("\n");
 	}
 	
 	
 	private void writeUsings() throws IOException {
-		// import
-		//w.write("using " + DataBaseConnector.getInstance().getPACKAGE() + ".*;");
-		//w.write("\n");
-		//w.write("\n");
+	    
+	    bw.write("using DataBaseLib.utils;");
+	    bw.write("\n");
+	    bw.write("using MySql.Data.MySqlClient;");
+	    bw.write("\n");
+	    bw.write("using System;");
+	    bw.write("\n");
+	    bw.write("using System.Collections.Generic;");
+	    bw.write("\n");
+	    bw.write("using System.Linq;");
+	    bw.write("\n");
+	    bw.write("using System.Text;");
+	    bw.write("\n");
+	    bw.write("using System.Threading.Tasks;");	
+	    bw.write("\n");
+	    bw.write("\n");
 	}
 
 

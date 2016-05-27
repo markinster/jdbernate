@@ -8,6 +8,7 @@ import java.io.IOException;
 import com.jdbernate.connection.DataBaseConnector;
 import com.jdbernate.objects.AttributeScheme;
 import com.jdbernate.objects.ClassScheme;
+import com.jdbernate.utils.StringUtils;
 
 public class CSharpDaoFW implements IFileWriter{
 	private File file;
@@ -126,10 +127,32 @@ public class CSharpDaoFW implements IFileWriter{
 	}
 
 	private void writeUsings() throws IOException {
-		// import
-		//w.write("using " + DataBaseConnector.getInstance().getPACKAGE() + ".*;");
-		//w.write("\n");
-		//w.write("\n");
+		
+		String pkt = DataBaseConnector.getInstance().getPACKAGE();
+		
+		String models = pkt + ".models";
+		if (!StringUtils.isEmpty(DataBaseConnector.getInstance().getModelSubdir()))
+			models += "." + DataBaseConnector.getInstance().getModelSubdir();
+		
+		models += ";";
+		
+	    w.write("using " + pkt + ".utils;");
+	    w.write("\n");
+	    w.write("using " + models);
+	    w.write("\n");
+	    w.write("using MySql.Data.MySqlClient;");
+	    w.write("\n");
+	    w.write("using System;");
+	    w.write("\n");
+	    w.write("using System.Collections.Generic;");
+	    w.write("\n");
+	    w.write("using System.Linq;");
+	    w.write("\n");
+	    w.write("using System.Text;");
+	    w.write("\n");
+	    w.write("using System.Threading.Tasks;");	
+	    w.write("\n");	   	    		
+	    w.write("\n");
 	}
 
 	

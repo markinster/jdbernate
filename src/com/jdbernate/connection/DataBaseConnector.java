@@ -20,6 +20,7 @@ public class DataBaseConnector {
 	
 	private String folder = "src//com//jdbernate//entities";
 	private String PACKAGE = "com.jdbernate.entities";	
+	private String modelSubdir = "";
 	
 	private	Connection con;
 
@@ -45,7 +46,8 @@ public class DataBaseConnector {
 		instance.port = properties.getProperty("database.port").trim();
 		instance.user = properties.getProperty("database.user").trim();
 		instance.password = properties.getProperty("database.password").trim();
-		instance.language = properties.getProperty("database.language").trim();
+		instance.language = properties.getProperty("database.language").trim(); 
+		instance.modelSubdir = properties.getProperty("database.models.subdir").trim();
 		
 		String pak = properties.getProperty("database.package").trim();
 		if (pak != null && !pak.trim().isEmpty()) {
@@ -117,6 +119,14 @@ public class DataBaseConnector {
 	
 	public String getPort() {
 		return port;
+	}
+	
+	public String getModelSubdir() {
+		return modelSubdir;
+	}
+	
+	public void setModelSubdir(String modelSubdir) {
+		this.modelSubdir = modelSubdir;
 	}
 
 	public Connection getConnection() throws SQLException {
