@@ -1,8 +1,7 @@
 # README #
 
-O ideia deste projeto é criar um um framework java JDBC,
-Inicialmente o projeto irá conectar-se a um banco de dados, e gerar as classes de Entidades e DAO, para cada tabela.
+This project generate all model classes and DAO in C# for a data base.
 
-MySQL - em desenvolvimento.
+For run it configure jdbernate.properties file.
  
- C# - Implementado a criacao de Entidades e DAO para C#
+
