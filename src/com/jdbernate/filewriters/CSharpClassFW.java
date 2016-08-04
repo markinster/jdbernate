@@ -54,6 +54,8 @@ public class CSharpClassFW implements IFileWriter {
 	//usado para fazer espaçamentos
 	private String TAB = "    ";
 	
+	private String ___newLine = System.getProperty("line.separator"); 
+	
 	@Override
 	public void write(ClassScheme clazz) throws IOException{
 		
@@ -77,22 +79,24 @@ public class CSharpClassFW implements IFileWriter {
 	    //grava o namespace
 	    writeNamespace();
 	    
-	    bw.write("\n");
+	    bw.write(___newLine);
 	    
 	    //public class NomeDaClasse
 	    bw.write(TAB+"public class " + clazz.getName() + " { ");
-	    bw.write("\n\n");
+	    bw.write(___newLine);
+	    bw.write(___newLine);
 	    
 	    
 	    //construtor padrao
-	    bw.write(TAB+TAB+"public " + clazz.getName() + "()\n");
-	    bw.write(TAB+TAB+"{\n");
+	    bw.write(TAB+TAB+"public " + clazz.getName() + "()" + ___newLine);
+	    bw.write(TAB+TAB+"{"+___newLine);
 	    bw.write(TAB+TAB+"}");
-	    bw.write("\n\n");
+	    bw.write(___newLine);
+	    bw.write(___newLine);
 	    
 	    //construtor com MysqlReader
-	    bw.write(TAB+TAB+"public " + clazz.getName() + "(MySqlDataReader reader)\n");
-	    bw.write(TAB+TAB+"{\n");
+	    bw.write(TAB+TAB+"public " + clazz.getName() + "(MySqlDataReader reader)"+___newLine);
+	    bw.write(TAB+TAB+"{"+___newLine);
 	    
 	    for (AttributeScheme at : clazz.getAttributes()){
 	    	
@@ -122,22 +126,24 @@ public class CSharpClassFW implements IFileWriter {
 	    	
 	    	bw.write(string);
 	    	
-	    	bw.write("\n");
+	    	bw.write(___newLine);
 	    }
-	    bw.write(TAB+TAB+"}\n");
-	    bw.write("\n\n");
+	    bw.write(TAB+TAB+"}");
+	    bw.write(___newLine);
+	    bw.write(___newLine);
+	    bw.write(___newLine);
 	    
 	    
 	    //grava todos os atributos da classe
 	    for (AttributeScheme at : clazz.getAttributes()){
 	    	//public tipo atributo { get; set; }
 	    	bw.write(TAB+TAB+"public " + at.getType() + " " + at.getName() + " { get; set; }");
-	    	bw.write("\n");
+	    	bw.write(___newLine);
 	    }
 	    
-	    bw.write("\n");
+	    bw.write(___newLine);
 	    bw.write(TAB+"} ");
-	    bw.write("\n} ");
+	    bw.write(___newLine+"} ");
 	    
 	    bw.close();
 	}
@@ -153,28 +159,28 @@ public class CSharpClassFW implements IFileWriter {
 		
 		bw.write("namespace " + models);
 		
-		bw.write("\n{");
-		bw.write("\n");
+		bw.write(___newLine+"{");
+		bw.write(___newLine);
 	}
 	
 	
 	private void writeUsings() throws IOException {
 	    
 	    bw.write("using DataBaseLib.utils;");
-	    bw.write("\n");
+	    bw.write(___newLine);
 	    bw.write("using MySql.Data.MySqlClient;");
-	    bw.write("\n");
+	    bw.write(___newLine);
 	    bw.write("using System;");
-	    bw.write("\n");
+	    bw.write(___newLine);
 	    bw.write("using System.Collections.Generic;");
-	    bw.write("\n");
+	    bw.write(___newLine);
 	    bw.write("using System.Linq;");
-	    bw.write("\n");
+	    bw.write(___newLine);
 	    bw.write("using System.Text;");
-	    bw.write("\n");
+	    bw.write(___newLine);
 	    bw.write("using System.Threading.Tasks;");	
-	    bw.write("\n");
-	    bw.write("\n");
+	    bw.write(___newLine);
+	    bw.write(___newLine);
 	}
 
 

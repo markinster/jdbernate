@@ -52,6 +52,8 @@ public class CSharpDaoFW implements IFileWriter{
 	private ClassScheme clazz;
 	
 	private String TAB = "    ";
+	
+	private String ___newLine = System.getProperty("line.separator"); 
 
 	@Override
 	public void write(ClassScheme clazz) throws IOException {
@@ -74,81 +76,97 @@ public class CSharpDaoFW implements IFileWriter{
 		writeNamespace();
 
 		// head of class
-		w.write(TAB + "public class " + className + "\n"+ TAB +"{");
-		w.write("\n");
+		w.write(TAB + "public class " + className + ___newLine+ TAB +"{");
+		w.write(___newLine);
 		
-		w.write(TAB+TAB+"private MySqlConnection conn; \n");
-		w.write("\n");
+		w.write(TAB+TAB+"private MySqlConnection conn;");
+		w.write(___newLine);
+		w.write(___newLine);
 		
 		defineConstants();
 		
-		w.write("\n");
+		w.write(___newLine);
 		
 		//CONSTRUCTOR
-		w.write(TAB + TAB + "public " + className + "(MySqlConnection conn)\n"+ TAB + TAB +"{\n");
-		w.write(TAB+TAB+TAB+"this.conn = conn; \n");
-		w.write(TAB+TAB+"}\n");
-
-		w.write("\n");
+		w.write(TAB + TAB + "public " + className + "(MySqlConnection conn)");
+		w.write(___newLine);
+		w.write(TAB + TAB +"{");
+		w.write(TAB+TAB+TAB+"this.conn = conn; ");
+		w.write(___newLine);
+		w.write(TAB+TAB+"}");
+		w.write(___newLine);
+		w.write(___newLine);
 		
 		
 		
 		//METHODS
 		
 		//Insert
-		w.write(TAB + TAB + "public string Insert(" +clazz.getName()+ " entity)\n" );
-		w.write(TAB+TAB+"{\n");
-		w.write(TAB+TAB+TAB+"return Save(entity, SQL_INSERT);\n");
-		w.write(TAB+TAB+"}\n");
-		w.write("\n");
+		w.write(TAB + TAB + "public string Insert(" +clazz.getName()+ " entity)" );
+		w.write(___newLine);
+		w.write(TAB+TAB+"{");
+		w.write(___newLine);
+		w.write(TAB+TAB+TAB+"return Save(entity, SQL_INSERT);");
+		w.write(___newLine);
+		w.write(TAB+TAB+"}");
+		w.write(___newLine);
+		w.write(___newLine);
 		
 		//update
-		w.write(TAB + TAB + "public string Update(" +clazz.getName()+ " entity)\n" );
-		w.write(TAB+TAB+"{\n");
-		w.write(TAB+TAB+TAB+"return Save(entity, SQL_UPDATE);\n");
-		w.write(TAB+TAB+"}\n");
-		w.write("\n");		
+		w.write(TAB + TAB + "public string Update(" +clazz.getName()+ " entity)" );
+		w.write(___newLine);
+		w.write(TAB+TAB+"{");
+		w.write(___newLine);
+		w.write(TAB+TAB+TAB+"return Save(entity, SQL_UPDATE);");
+		w.write(___newLine);
+		w.write(TAB+TAB+"}");
+		w.write(___newLine);
+		w.write(___newLine);		
 		
 		//save
-		w.write(TAB + TAB + "private string Save(" +clazz.getName()+ " entity, String sql)\n" );
-		w.write(TAB+TAB+"{\n");
-		w.write(TAB+TAB+TAB+"try\n");
-		w.write(TAB+TAB+TAB+"{\n");
+		w.write(TAB + TAB + "private string Save(" +clazz.getName()+ " entity, String sql)" + ___newLine );
+		w.write(TAB+TAB+"{" + ___newLine);
+		w.write(TAB+TAB+TAB+"try" + ___newLine);
+		w.write(TAB+TAB+TAB+"{" + ___newLine);
 		
-		w.write(TAB+TAB+TAB+TAB+"MySqlCommand command = new MySqlCommand(sql, conn);\n");
-		w.write(TAB+TAB+TAB+TAB+"command = SetParameters(entity, command);\n");
-		w.write(TAB+TAB+TAB+TAB+"command.ExecuteNonQuery();\n");
-		w.write(TAB+TAB+TAB+TAB+"return null;\n");
+		w.write(TAB+TAB+TAB+TAB+"MySqlCommand command = new MySqlCommand(sql, conn);" + ___newLine);
+		w.write(TAB+TAB+TAB+TAB+"command = SetParameters(entity, command);" + ___newLine);
+		w.write(TAB+TAB+TAB+TAB+"command.ExecuteNonQuery();" + ___newLine);
+		w.write(TAB+TAB+TAB+TAB+"return null;" + ___newLine);
 		
-		w.write(TAB+TAB+TAB+"}\n");
-		w.write(TAB+TAB+TAB+"catch (Exception ex)\n");
-		w.write(TAB+TAB+TAB+"{\n");
-		w.write(TAB+TAB+TAB+TAB+"return ex.ToString();\n");
-		w.write(TAB+TAB+TAB+"}\n");
-		w.write(TAB+TAB+"}\n");
-		w.write("\n");
+		w.write(TAB+TAB+TAB+"}" + ___newLine);
+		w.write(TAB+TAB+TAB+"catch (Exception ex)" + ___newLine);
+		w.write(TAB+TAB+TAB+"{" + ___newLine);
+		w.write(TAB+TAB+TAB+TAB+"return ex.ToString();" + ___newLine);
+		w.write(TAB+TAB+TAB+"}" + ___newLine);
+		w.write(TAB+TAB+"}" + ___newLine);
+		w.write(___newLine);
 		
 		//Set parameters
-		w.write(TAB + TAB + "private MySqlCommand SetParameters(" +clazz.getName()+ " entity, MySqlCommand command)\n" );
-		w.write(TAB+TAB+"{\n");
+		w.write(TAB + TAB + "private MySqlCommand SetParameters(" +clazz.getName()+ " entity, MySqlCommand command)" );
+		w.write(___newLine);
+		w.write(TAB+TAB+"{");
+		w.write(___newLine);
 		
 		for (AttributeScheme at : clazz.getAttributes()){
 			String string = TAB+TAB+TAB+"command.Parameters.Add(new MySqlParameter(\"";
-			string += at.getTableOriginalName()+"\", entity."+at.getName()+"));\n";
+			string += at.getTableOriginalName()+"\", entity."+at.getName()+"));"+ ___newLine;
 			w.write(string);
 		}
 		
 		
-		w.write(TAB+TAB+TAB+"return command;\n");
-		w.write(TAB+TAB+"}\n");
-		w.write("\n");
+		w.write(TAB+TAB+TAB+"return command;");
+		w.write(___newLine);
+		w.write(TAB+TAB+"}");
+		w.write(___newLine);
+		w.write(___newLine);
 		
 		//------------------------
 		
 		
 		w.write(TAB+"}"); // end of classs
-		
-		w.write("\n}"); // end of namespace
+		w.write(___newLine);
+		w.write("}"); // end of namespace
 
 		w.close();
 	}
@@ -156,8 +174,9 @@ public class CSharpDaoFW implements IFileWriter{
 	private void writeNamespace() throws IOException {
 		// write package
 		w.write("namespace " + DataBaseConnector.getInstance().getPACKAGE() + ".daos");
-		w.write("\n{");
-		w.write("\n");
+		w.write(___newLine);
+		w.write("{");
+		w.write(___newLine);
 	}
 
 	private void writeUsings() throws IOException {
@@ -171,22 +190,22 @@ public class CSharpDaoFW implements IFileWriter{
 		models += ";";
 		
 	    w.write("using " + pkt + ".utils;");
-	    w.write("\n");
+	    w.write(___newLine);
 	    w.write("using " + models);
-	    w.write("\n");
+	    w.write(___newLine);
 	    w.write("using MySql.Data.MySqlClient;");
-	    w.write("\n");
+	    w.write(___newLine);
 	    w.write("using System;");
-	    w.write("\n");
+	    w.write(___newLine);
 	    w.write("using System.Collections.Generic;");
-	    w.write("\n");
+	    w.write(___newLine);
 	    w.write("using System.Linq;");
-	    w.write("\n");
+	    w.write(___newLine);
 	    w.write("using System.Text;");
-	    w.write("\n");
+	    w.write(___newLine);
 	    w.write("using System.Threading.Tasks;");	
-	    w.write("\n");	   	    		
-	    w.write("\n");
+	    w.write(___newLine);	   	    		
+	    w.write(___newLine);
 	}
 
 	
@@ -195,7 +214,8 @@ public class CSharpDaoFW implements IFileWriter{
 		String s = TAB+TAB+"private string SQL_INSERT = \"INSERT INTO " + clazz.getTableName();		
 		s += " ( \" " + getFields()  + TAB+TAB+ " +\" ) VALUES ( \"" + getParamns()  + TAB+TAB+ "+\" );\";";
 		w.write(s);
-		w.write("\n\n");
+		w.write(___newLine);
+		w.write(___newLine);
 
 		//  UPDATE
 		String[] _fields = clazz.getFields().split(",");
@@ -208,9 +228,9 @@ public class CSharpDaoFW implements IFileWriter{
 		String fecha = "";
 		for (String f : _fields){
 			fields += fecha + TAB+TAB+TAB+ "+\"" + f ;
-			fecha = ", \" \n ";
+			fecha = ", \"  " + ___newLine;
 		}
-		fields += "\" \n ";
+		fields += "\" " + ___newLine;
 		
 		String CONDITION = "";
 		String AND = "";
@@ -219,17 +239,17 @@ public class CSharpDaoFW implements IFileWriter{
 			AND = " and ";
 		}
 			
-		s = TAB+TAB+"private string SQL_UPDATE = \"UPDATE " + clazz.getTableName() + " SET \" \n";
+		s = TAB+TAB+"private string SQL_UPDATE = \"UPDATE " + clazz.getTableName() + " SET \" " + ___newLine;
 		s += fields;
 		s +=  TAB+TAB+" +\" WHERE ( " + CONDITION + " )  ;\";";
 		w.write(s);
-		w.write("\n");
+		w.write(___newLine);
 		
 	}
 	
 	
 	private String getFields() {
-		String fields = "\n";
+		String fields = ___newLine;
 		
 		String f = clazz.getFields();
 		f = f.replace(" ", "");
@@ -238,9 +258,9 @@ public class CSharpDaoFW implements IFileWriter{
 		String fecha = "";
 		for (int i = 0; i < _fields.length; i++) {
 			fields += fecha + TAB+TAB+TAB+ "+\"" + _fields[i];
-			fecha = ", \" \n ";
+			fecha = ", \" " + ___newLine;
 		}
-		fields += "\" \n ";
+		fields += "\" " + ___newLine;
 		
 		clazz.getFields();
 		
@@ -250,7 +270,7 @@ public class CSharpDaoFW implements IFileWriter{
 	
 	
 	private String getParamns(){
-		String paramns = "\n";
+		String paramns = ___newLine;
 		
 		String f = clazz.getFields();
 		f = f.replace(" ", "");
@@ -259,9 +279,9 @@ public class CSharpDaoFW implements IFileWriter{
 		String fecha = "";
 		for (int i = 0; i < _fields.length; i++) {
 			paramns += fecha  + TAB+TAB+TAB+ "+\"@" + _fields[i];
-			fecha = ", \" \n ";
+			fecha = ", \" " + ___newLine;
 		}
-		paramns += "\" \n ";
+		paramns += "\" " + ___newLine;
 		
 		clazz.getFields();
 		
