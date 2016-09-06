@@ -88,9 +88,13 @@ public class CSharpDaoFW implements IFileWriter{
 		w.write(___newLine);
 		
 		//CONSTRUCTOR
+		w.write(___newLine);
+		w.write(TAB + TAB + "// CONSTRUCTOR");
+		w.write(___newLine);
 		w.write(TAB + TAB + "public " + className + "(MySqlConnection conn)");
 		w.write(___newLine);
 		w.write(TAB + TAB +"{");
+		w.write(___newLine);
 		w.write(TAB+TAB+TAB+"this.conn = conn; ");
 		w.write(___newLine);
 		w.write(TAB+TAB+"}");
@@ -100,13 +104,36 @@ public class CSharpDaoFW implements IFileWriter{
 		
 		
 		//METHODS
+		w.write(___newLine);
+		w.write(TAB + TAB + "// METHODS");
+		w.write(___newLine);
+		
+		//Delete
+		w.write(TAB + TAB + "public string Delete(" +clazz.getName()+ " entity)" );
+		w.write(___newLine);
+		w.write(TAB+TAB+"{");
+		
+		w.write(___newLine);
+		w.write(TAB+TAB+TAB+"/*------------------*\\");
+		w.write(___newLine);
+		w.write(TAB+TAB+TAB+TAB+"NOT IMPLEMENTED");
+		w.write(___newLine);
+		w.write(TAB+TAB+TAB+"\\*------------------*/");
+		w.write(___newLine);
+		w.write(___newLine);
+		w.write(TAB+TAB+TAB+"return null;");
+		w.write(___newLine);
+		w.write(TAB+TAB+"}");
+		w.write(___newLine);
+		w.write(___newLine);
+		
 		
 		//Insert
 		w.write(TAB + TAB + "public string Insert(" +clazz.getName()+ " entity)" );
 		w.write(___newLine);
 		w.write(TAB+TAB+"{");
 		w.write(___newLine);
-		w.write(TAB+TAB+TAB+"return Save(entity, SQL_INSERT);");
+		w.write(TAB+TAB+TAB+"return Persist(entity, SQL_INSERT);");
 		w.write(___newLine);
 		w.write(TAB+TAB+"}");
 		w.write(___newLine);
@@ -117,14 +144,14 @@ public class CSharpDaoFW implements IFileWriter{
 		w.write(___newLine);
 		w.write(TAB+TAB+"{");
 		w.write(___newLine);
-		w.write(TAB+TAB+TAB+"return Save(entity, SQL_UPDATE);");
+		w.write(TAB+TAB+TAB+"return Persist(entity, SQL_UPDATE);");
 		w.write(___newLine);
 		w.write(TAB+TAB+"}");
 		w.write(___newLine);
 		w.write(___newLine);		
 		
-		//save
-		w.write(TAB + TAB + "private string Save(" +clazz.getName()+ " entity, String sql)" + ___newLine );
+		//Persist
+		w.write(TAB + TAB + "private string Persist(" +clazz.getName()+ " entity, String sql)" + ___newLine );
 		w.write(TAB+TAB+"{" + ___newLine);
 		w.write(TAB+TAB+TAB+"try" + ___newLine);
 		w.write(TAB+TAB+TAB+"{" + ___newLine);
