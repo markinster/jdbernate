@@ -49,23 +49,15 @@ import com.jdbernate.filewriters.JavaClassFW;
 import com.jdbernate.filewriters.JavaDaoFW;
 import com.jdbernate.objects.ClassScheme;
 import com.jdbernate.services.ClassMaker;
-import com.jdbernate.typemakers.ITypeMaker;
-import com.jdbernate.typemakers.JavaTypeMakerMySQL;
-import com.jdbernate.typemakers.TypeMakerHelper;
 
 public class JDbernate {
-
-	// this TypeMaker is instanced in constructor of class
-	public static ITypeMaker typeMaker;
 
 	// list of tables from data base
 	private List<String> tables = new ArrayList<String>();
 
 	// constructor
-	public JDbernate() throws IOException {
-		if (DataBaseConnector.getInstance().getSgbd().equals(DataBaseConnector.SGBD_MYSQL)) {
-			typeMaker = new JavaTypeMakerMySQL();
-		}
+	public JDbernate()  {
+
 	}
 
 	/*
@@ -73,9 +65,6 @@ public class JDbernate {
 	 * architecture
 	 */
 	public void execute() throws SQLException, IOException {
-
-		if (typeMaker == null)
-			typeMaker = TypeMakerHelper.getTypeMaker();
 
 		tables = DBProviderBuilder.getDBProvider().getTables();
 

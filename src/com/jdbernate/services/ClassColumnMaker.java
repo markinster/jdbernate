@@ -34,9 +34,9 @@
  */	
 package com.jdbernate.services;
 
-import com.jdbernate.JDbernate;
 import com.jdbernate.objects.AttributeScheme;
 import com.jdbernate.objects.Column;
+import com.jdbernate.typemakers.TypeMakerHelper;
 
 public class ClassColumnMaker {
 
@@ -48,7 +48,7 @@ public class ClassColumnMaker {
 		name = name.substring(0, 1).toLowerCase() + name.substring(1);
 		
 		cCol.setName(name);
-		cCol.setType(JDbernate.typeMaker.getType(tableColumn.getType()));
+		cCol.setType(TypeMakerHelper.getTypeMaker().getType(tableColumn.getType()));
 		cCol.setDbFieldName(tableColumn.getName());
 		cCol.setTableOriginalName(tableColumn.getName());
 
