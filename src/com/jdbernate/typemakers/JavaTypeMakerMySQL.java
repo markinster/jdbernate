@@ -80,13 +80,13 @@ public class JavaTypeMakerMySQL implements ITypeMaker {
 
 	private void createMapTypes() {
 		types = new HashMap<String, String>();
-		types.put(CHARACTER, "string");
-		types.put(VARCHAR, "string");
-		types.put(CHAR, "string");
-		types.put(BIGTEXT, "string");
-		types.put(MEDIUMTEXT, "string");
-		types.put(SMALLTEXT, "string");
-		types.put(TINYTEXT, "string");
+		types.put(CHARACTER, "String");
+		types.put(VARCHAR, "String");
+		types.put(CHAR, "String");
+		types.put(BIGTEXT, "String");
+		types.put(MEDIUMTEXT, "String");
+		types.put(SMALLTEXT, "String");
+		types.put(TINYTEXT, "String");
 		types.put(INT, "int");
 		types.put(INTEGER, "int");
 		types.put(SERIAL, "int");
@@ -100,8 +100,8 @@ public class JavaTypeMakerMySQL implements ITypeMaker {
 		types.put(REAL, "double");
 		types.put(NUMERIC, "double");
 		types.put(YEAR, "int32");
-		types.put(TIME, "string");
-		types.put(DATE, "string");
+		types.put(TIME, "String");
+		types.put(DATE, "String");
 	}
 
 	private String returnType(String type) {
