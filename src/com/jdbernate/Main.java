@@ -46,15 +46,15 @@ public class Main {
 	public static void main(String[] args) {
 		try {
 			// connect to data base
-			DataBaseConnector.getInstance().load();
+			DataBaseConnector dbc = DataBaseConnector.getInstance();
+			
+			dbc.load();
 
-			// create a folder
-			File f = new File(DataBaseConnector.getInstance().getFolder());
-			f.mkdirs();
+			// create folders
+			new File(dbc.getFolder()).mkdirs();
 
 			// main process
-			JDbernate jDbernate = new JDbernate();
-			jDbernate.execute();
+			new JDbernate().execute();
 
 		} catch (SQLException e) {
 			e.printStackTrace();
